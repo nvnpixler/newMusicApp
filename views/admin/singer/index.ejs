@@ -1,0 +1,130 @@
+<%- include('../layouts/header'); %>
+
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Singers</h1>
+          </div>
+          
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <% if (flashMessage.message) { %>
+            <div class="alert alert-success"><%= flashMessage.message %></div>
+        <% } %>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <!-- <h3 class="card-title">DataTable with minimal features & hover style</h3> -->
+                <div class="col-md-1 float-right">
+                    <a href="/admin/singer/create"><button type="button" class="btn btn-block btn-primary">Add</button></a>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example2" class="table table-bordered table-hover">
+                  <thead>
+                  <tr>
+                    <!-- <th>#</th> -->
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <!-- <th>Phone no.</th> -->
+                    <th>Image</th>
+                    <th>Phone</th>
+                    <th>Verification Status</th>
+                    <th>Popil buds</th>
+                    <th>Joined Date</th>
+                    <!-- <th>Status</th> -->
+                    <th>Action</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                    <% let count = 1;
+                     for(let i in users){ %>
+                        <tr>
+                            <td><%= count++ %></td>
+                            <td><%= users[i].name %></td>
+                            <td><%= users[i].email %></td>
+                            <!-- <td><%= users[i].contact_number %></td> -->
+                            <td><img class="profile-user-img img-fluid img-circle" style="height: 100px;" src="<%= users[i].image %>" alt="user profile picture"></td>
+                            <td><%= users[i].phone %></td>
+                            <td>
+                              <% if(users[i].is_otp_verified == 1){ %>
+                                <a href="#"><button type="button" class="btn btn-block btn-success">Verified</button></a>
+                              <% }else{ %>
+                                <a href="#"><button type="button" class="btn btn-block btn-danger">Not-Verified</button></a>
+                              <% } %>
+                            </td>
+                            <td>
+                              <% if(users[i].is_popil_buds == 1){ %>
+                                <a href="#"><button type="button" class="btn btn-block btn-success">Yes</button></a>
+                              <% }else{ %>
+                                <a href="#"><button type="button" class="btn btn-block btn-danger">No</button></a>
+                              <% } %>
+                            </td>
+                            <td><%= moment(users[i].created_at).format('llll'); %></td>
+                            <!-- <td>
+                                <% if(users[i].status == 1){ %>
+                                <span style="color:green; cursor:pointer">Active</span>
+                                 <% }else { %>
+                                    <span style="color:red; cursor:pointer">Active</span>
+                                 <% } %>
+                            </td> -->
+                            <td> <a id="delete_button" href="/admin/singer/delete/<%= users[i].id %>" style="color: red;"><i class="fas fa-trash"></i></a> </i></td>
+                        </tr>
+                    <% } %>
+                  </tbody>
+                  <!-- <tfoot>
+                  <tr>
+                    <th>#</th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone no.</th>
+                    <th>Image</th>
+                    <th>Phone</th>
+                    <th>Coupons Left</th>
+                    <th>Joined Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                  </tfoot> -->
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <%- include('../layouts/footer'); %>
+
+  <script>
+    $('#delete_button').click(function(e){
+      
+      var result = confirm("Are you sure want to delete?");
+      console.log(result,'--------result------');
+      if (!result) {
+        e.preventDefault()
+        return
+      }
+    })
+  </script>

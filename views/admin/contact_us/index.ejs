@@ -1,0 +1,86 @@
+<%- include('../layouts/header'); %>
+
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Contact Us</h1>
+          </div>
+          
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <!-- <h3 class="card-title">DataTable with minimal features & hover style</h3> -->
+                <!-- <div class="col-md-1 float-right">
+                    <a href="/admin/singer/create"><button type="button" class="btn btn-block btn-primary">Add</button></a>
+                </div> -->
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example2" class="table table-bordered table-hover">
+                  <thead>
+                  <tr>
+                    <!-- <th>#</th> -->
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Message</th>
+                    <th>Contact Date</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                    <% let count = 1;
+                     for(let i in data){ %>
+                        <tr>
+                            <td><%= count++ %></td>
+                            <td><%= data[i].name %></td>
+                            <td><%= data[i].email %></td>
+                            <td><%= data[i].message %></td>
+                            <td><%= moment(data[i].created_at).format('llll'); %></td>
+                        </tr>
+                    <% } %>
+                  </tbody>
+                  <!-- <tfoot>
+                  <tr>
+                    <th>#</th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone no.</th>
+                    <th>Image</th>
+                    <th>Phone</th>
+                    <th>Coupons Left</th>
+                    <th>Joined Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                  </tfoot> -->
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <%- include('../layouts/footer'); %>

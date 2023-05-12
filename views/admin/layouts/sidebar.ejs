@@ -1,0 +1,150 @@
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="/admin/dashboard" class="brand-link">Popil Tunes
+      <img src="/images/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">
+        <!-- <%= appName %> -->
+      </span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar" style="margin-top: 25px;">
+      <!-- Sidebar user panel (optional) -->
+      <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a href="#" class="d-block">Alexander Pierce</a>
+        </div>
+      </div> -->
+
+      <!-- SidebarSearch Form -->
+      <div class="form-inline">
+        <div class="input-group" data-widget="sidebar-search">
+          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+          <div class="input-group-append">
+            <button class="btn btn-sidebar">
+              <i class="fas fa-search fa-fw"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item menu-open">
+            <a href="/admin/dashboard" class="nav-link <% if(title=='dashboard'){ %> active <% }%>">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dashboard
+              </p>
+            </a>
+          </li>
+          <li class="nav-item menu-open">
+            <a href="/admin/user/list" class="nav-link <% if(title=='user'){ %> active <% }%>">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Users
+              </p>
+            </a>
+          </li>
+          <li class="nav-item menu-open">
+            <a href="/admin/singer/list" class="nav-link <% if(title=='singer'){ %> active <% }%>">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Singers
+              </p>
+            </a>
+          </li>
+          <li class="nav-item menu-open">
+            <a href="/admin/category/list" class="nav-link <% if(title=='category'){ %> active <% }%>">
+              <i class="nav-icon fa fa-newspaper"></i>
+              <p>
+                Languages
+              </p>
+            </a>
+          </li>
+          <li class="nav-item menu-open">
+            <a href="/admin/avatar/list" class="nav-link <% if(title=='avatar'){ %> active <% }%>">
+              <i class="nav-icon fa fa-newspaper"></i>
+              <p>
+                Avatars
+              </p>
+            </a>
+          </li>
+          <li class="nav-item menu-open">
+            <a href="/admin/genres/list" class="nav-link <% if(title=='genres'){ %> active <% }%>">
+              <i class="nav-icon fa fa-newspaper"></i>
+              <p>
+                Genres
+              </p>
+            </a>
+          </li>
+          <li class="nav-item menu-open">
+            <a href="/admin/song/list" class="nav-link <% if(title=='song'){ %> active <% }%>">
+              <i class="nav-icon fa fa-envelope"></i>
+              <p>
+                Songs
+              </p>
+            </a>
+          </li>
+          <li class="nav-item menu-open">
+            <a href="/admin/video/list" class="nav-link <% if(title=='video'){ %> active <% }%>">
+              <i class="nav-icon fa fa-envelope"></i>
+              <p>
+                Video
+              </p>
+            </a>
+          </li>
+          <li class="nav-item menu-open">
+            <a href="/admin/popil_pick/list" class="nav-link <% if(title=='popil_pick'){ %> active <% }%>">
+              <i class="nav-icon fa fa-envelope"></i>
+              <p>
+                Popil Picks
+              </p>
+            </a>
+          </li>
+          <li class="nav-item menu-open">
+            <a href="/admin/podcast/list" class="nav-link <% if(title=='podcast'){ %> active <% }%>">
+              <i class="nav-icon fa fa-envelope"></i>
+              <p>
+                Podcasts
+              </p>
+            </a>
+          </li>
+          <li class="nav-item menu-open">
+            <a href="/admin/transaction/list" class="nav-link <% if(title=='transaction'){ %> active <% }%>">
+              <i class="nav-icon fa fa-envelope"></i>
+              <p>
+                Transactions
+              </p>
+            </a>
+          </li>
+          <li class="nav-item menu-open">
+            <a href="/admin/contact_us/list" class="nav-link <% if(title=='contact_us'){ %> active <% }%>">
+              <i class="nav-icon fa fa-envelope"></i>
+              <p>
+                Contact Us
+              </p>
+            </a>
+          </li>
+          <li class="nav-item menu-open">
+            <a href="/admin/cms/list" class="nav-link <% if(title=='cms'){ %> active <% }%>">
+              <i class="nav-icon fa fa-th-large"></i>
+              <p>
+                Cms
+              </p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>

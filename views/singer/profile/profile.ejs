@@ -1,0 +1,65 @@
+<%- include('../layouts/header'); %>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" style="background: wheat;">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Profile</h1>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+       
+      <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3"></div>
+          <div class="col-md-6">
+
+            <!-- Profile Image -->
+            <div class="card card-primary card-outline">
+              <div class="card-body box-profile" style="background: #d5c476;">
+                <div class="text-center">
+                    <% if(admin.image && admin.image != ''){ %>
+                        <img class="profile-user-img img-fluid img-circle" style="height: 100px;" src="<%= admin.image %>" alt="Admin profile picture">
+                    <% } else { %>
+                        <img class="profile-user-img img-fluid img-circle" style="height: 100px;" src="../../dist/img/user4-128x128.jpg" alt="Admin profile picture">
+                    <% } %>
+                </div>
+
+                <h3 class="profile-username text-center"><%= admin.name %></h3>
+
+                <p class="text-muted text-center">Admin</p>
+
+                <ul class="list-group list-group-unbordered mb-3" >
+                    <li class="list-group-item" style="background: #d5c476;">
+                      <b>Name</b> <b class="float-right"><%= admin.name %></b>
+                    </li>
+                    <li class="list-group-item" style="background: #d5c476;">
+                      <b>Email</b> <b class="float-right"><%= admin.email %></b>
+                    </li>
+                    <li class="list-group-item" style="background: #d5c476;">
+                      <b>Phone</b> <b class="float-right"><%= admin.phone %></b>
+                    </li>
+                  </ul>
+                  <a href="/singer/profile" class="btn btn-primary btn-block"><b>Edit Profile</b></a>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+          </div>
+          
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <%- include('../layouts/footer'); %>

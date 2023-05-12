@@ -1,0 +1,58 @@
+.upload-img-wrap{
+    position:relative;
+}
+.upload-img-wrap input[type="file"]{
+    position: absolute;
+    height:100%;
+    width:100%;
+    opacity:0;
+    z-index:1;
+    top:0;
+    left:0;
+    cursor:pointer;
+}
+
+.upload-img-wrap img{
+    height:200px;
+    width:200px;
+}
+
+/* for second image preview on same page */
+.upload-img-wrap2{
+    position:relative;
+}
+.upload-img-wrap2 input[type="file"]{
+    position: absolute;
+    height:100%;
+    width:100%;
+    opacity:0;
+    z-index:1;
+    top:0;
+    left:0;
+    cursor:pointer;
+}
+
+.upload-img-wrap2 img{
+    height:200px;
+    width:300px;
+}
+
+/* for third image preview on same page */
+.upload-img-wrap3{
+    position:relative;
+}
+.upload-img-wrap3 input[type="file"]{
+    position: absolute;
+    height:100%;
+    width:100%;
+    opacity:0;
+    z-index:1;
+    top:0;
+    left:0;
+    cursor:pointer;
+}
+
+.upload-img-wrap3 img{
+    height:200px;
+    width:300px;
+}

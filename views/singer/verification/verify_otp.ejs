@@ -1,0 +1,160 @@
+<%- include('../layouts/header'); %>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Verify Otp</h1>
+          </div>
+        
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <!-- <% if (flashMessage) { %>
+            <div class="alert alert-danger"><%= flashMessage %></div>
+        <% } %> -->
+      <div class="container-fluid">
+        <div class="row">
+          <!-- left column -->
+          <div class="col-md-12">
+            <!-- jquery validation -->
+            <div class="card card-primary">
+              <!-- <div class="card-header">
+                <h3 class="card-title">Quick Example <small>jQuery Validation</small></h3>
+              </div> -->
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form id="quickForm" method="post" action="#" enctype="multipart/form-data">
+                <div class="card-body">
+                    
+                    <div class="form-group">
+                      <label for="exampleInputEmail4">OTP</label>
+                      <input type="text" maxlength="4" name="otp" id="otp" class="form-control" id="exampleInputEmail4" placeholder="Enter OTP" >
+                    </div>
+
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </form>
+            </div>
+            <!-- /.card -->
+            </div>
+          <!--/.col (left) -->
+          <!-- right column -->
+          <div class="col-md-6">
+
+          </div>
+          <!--/.col (right) -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Accept Terms & Conditions</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <%- data.description %>
+            </div>
+            <div class="modal-footer">
+              <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button> -->
+              <button type="button" class="btn btn-primary" id="verify_otp" >I agree</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <!-- Button trigger modal -->
+        <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Launch demo modal
+        </button> -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+    <!-- <div id="dialog-confirm" title="Ready?">
+        <p>Are you sure?</p>
+    </div> -->
+    <!-- Modal -->
+
+
+  <%- include('../layouts/footer'); %>
+  <script>
+    $(document).ready(function () {
+
+        $(function(){
+            $("input[name='otp']").on('input', function (e) {
+                $(this).val($(this).val().replace(/[^0-9]/g, ''));
+            });
+        });
+      
+        $('#quickForm').validate({
+            rules: {
+                otp: {
+                    required: true,
+                },
+            },
+            messages: {
+                otp: "Please enter otp",
+            },
+
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+
+        var $optgroups = $('#genres > option');
+  
+        // $("#category").on("change",function(){
+        //   $('#genres > option').prop('disabled', false);
+        //   var selectedVal = this.value;
+        //   console.log(selectedVal,'--selectedVal---');
+        //   console.log($optgroups,'--selectedVal---');
+          
+        //   $('#genres').html($optgroups.filter('[cat_id="'+selectedVal+'"]'));
+        // });  
+      
+    });
+    </script>
+
+<script>
+
+    $("#quickForm").submit(function(e) {
+        e.preventDefault();
+        if ($(this).valid()) {            // this assumes you are using something like jquery validate - from  your original code, it looks like you were attempting to do this
+            // alert('ins')
+            // $("#exampleModal").toggle();
+            $('#exampleModal').modal('show');
+        } else {
+            // do error stuff here
+        }
+    });
+
+    $("#verify_otp").click(function() {
+        let otp = $('#otp').val();
+        window.location.href = `/singer/verification/submit_otp?otp=${otp}`
+        // alert($('#otp').val())
+    })
+
+</script>

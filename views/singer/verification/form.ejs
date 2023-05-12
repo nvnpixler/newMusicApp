@@ -1,0 +1,223 @@
+<%- include('../layouts/header'); %>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Verification Form</h1>
+          </div>
+        
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <!-- <% if (flashMessage) { %>
+            <div class="alert alert-danger"><%= flashMessage %></div>
+        <% } %> -->
+      <div class="container-fluid">
+        <div class="row">
+          <!-- left column -->
+          <div class="col-md-12">
+            <!-- jquery validation -->
+            <div class="card card-primary">
+              <!-- <div class="card-header">
+                <h3 class="card-title">Quick Example <small>jQuery Validation</small></h3>
+              </div> -->
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form id="quickForm" method="post" action="/singer/verification/update_form" enctype="multipart/form-data">
+                <div class="card-body">
+                    
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Name</label>
+                        <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Enter Name" value="<%= data.name %>" >
+                    </div>
+
+                    <div class="form-group">
+                      <label for="exampleInputEmail4">Country Code</label>
+                      <input type="text" name="country_code" class="form-control" id="exampleInputEmail4" placeholder="Enter Country Code" value="<%= data.country_code %>" >
+                    </div>
+
+                    <div class="form-group">
+                      <label for="exampleInputEmail5">Phone</label>
+                      <input type="number" name="phone" class="form-control" id="exampleInputEmail5" placeholder="Enter Phone" value="<%= data.phone %>" >
+                    </div>
+                    
+                    <div class="form-group">
+                      <label for="exampleInputEmail5">Email</label>
+                      <input readonly type="email" name="email" class="form-control" id="exampleInputEmail5" placeholder="Enter Email" value="<%= data.email %>" >
+                    </div>
+                    
+                    <div class="row">
+                      <div class="form-group col-md-6">
+                          <label for="inputExperience" class="col-sm-4 col-form-label">Upload Image</label>
+                          <div class="col-sm-10 upload-img-wrap">
+                            <% if(data.image && data.image !=''){ %>
+                              <!-- <input type="file" class="file-styled" name="image" value="" id="imgInp"> -->
+                              <img id="blah" height="50%" width="50%" class="img-fluid img-thumbnail my-3" src="<%= data.image %>"/>
+                            <% }else{ %>
+                              <input type="file" class="file-styled" name="image" value="" id="imgInp">
+                              <img id="blah" height="50%" width="50%" class="img-fluid img-thumbnail my-3" src="/images/avatar.png"/>
+                            <% } %>
+                            <input type="file" class="file-styled" name="image" value="/images/avatar.png" id="imgInp">
+                          </div>
+                      </div>
+                      
+                      <div class="form-group col-md-6">
+                          <label for="inputExperience" class="col-sm-6 col-form-label">Upload Aadhar Card Image</label>
+                          <div class="col-sm-10 upload-img-wrap2">
+                            <span>Front: &nbsp;</span>
+                            <% if(data.aadhar_image && data.aadhar_image !=''){ %>
+                              <img id="blah2" height="50%" width="70%" class="img-fluid img-thumbnail my-3" src="<%= data.aadhar_image %>"/>
+                            <% }else{ %>
+                              <!-- <input type="file" class="file-styled" name="aadhar_image" value="/images/aadhar.png" id="imgInp2"> -->
+                              <img id="blah2" height="50%" width="70%" class="img-fluid img-thumbnail my-3" src="/images/aadhar.png"/>
+                            <% } %>
+                            <input type="file" class="file-styled" name="aadhar_image" value="/images/aadhar.png" id="imgInp2">
+                          </div>
+                          <div class="col-sm-10 upload-img-wrap3">
+                            <span>Back: &nbsp;</span>
+                            <% if(data.aadhar_image_back && data.aadhar_image_back !=''){ %>
+                              <img id="blah3" height="50%" width="70%" class="img-fluid img-thumbnail my-3" src="<%= data.aadhar_image_back %>"/>
+                            <% }else{ %>
+                              <!-- <input type="file" class="file-styled" name="aadhar_image" value="/images/aadhar.png" id="imgInp2"> -->
+                              <img id="blah3" height="50%" width="70%" class="img-fluid img-thumbnail my-3" src="/images/aadhar.png"/>
+                            <% } %>
+                            <input type="file" class="file-styled" name="aadhar_image_back" value="/images/aadhar.png" id="imgInp3">
+                          </div>
+                      </div>
+                      
+                    </div>
+
+                    <hr>
+                    <hr>
+                    <div class="col-sm-6">
+                      <h2>Bank Details</h2>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Account Holder Name</label>
+                      <input type="text" name="account_holder_name" class="form-control" id="exampleInputEmail1" placeholder="Enter Account Holder Name" value="<%= data.singer_bank.account_holder_name %>">
+                    </div>
+
+                    <div class="form-group">
+                      <label for="exampleInputEmail5">Bank Name</label>
+                      <input type="text" name="bank_name" class="form-control" id="exampleInputEmail5" placeholder="Enter Branch Name" value="<%= data.singer_bank.bank_name %>">
+                    </div>
+
+                    <div class="form-group">
+                      <label for="exampleInputEmail4">Account Number</label>
+                      <input type="number" name="account_number" class="form-control" id="exampleInputEmail4" placeholder="Enter Account Number" value="<%= data.singer_bank.account_number %>">
+                    </div>
+
+                    <div class="form-group">
+                      <label for="exampleInputEmail5">IFSC Code</label>
+                      <input type="text" name="ifsc_code" class="form-control" id="exampleInputEmail5" placeholder="Enter IFSC Code" value="<%= data.singer_bank.ifsc_code %>">
+                    </div>
+
+                    <div class="form-group">
+                      <label for="exampleInputEmail5">Branch Name (Optional)</label>
+                      <input type="text" name="branch_address" class="form-control" id="exampleInputEmail5" placeholder="Enter Branch Name" value="<%= data.singer_bank.branch_address %>">
+                    </div>
+
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </form>
+            </div>
+            <!-- /.card -->
+            </div>
+          <!--/.col (left) -->
+          <!-- right column -->
+          <div class="col-md-6">
+
+          </div>
+          <!--/.col (right) -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <%- include('../layouts/footer'); %>
+  <script>
+    $(document).ready(function () {
+
+      $(function(){
+            $("input[name='country_code']").on('input', function (e) {
+                $(this).val($(this).val().replace(/[^0-9-+]/g, ''));
+            });
+        });
+      
+        $('#quickForm').validate({
+            rules: {
+                name: {
+                    required: true,
+                },
+                country_code: {
+                    required: true,
+                },
+                phone: {
+                    required: true,
+                },
+                bank_name: {
+                    required: true,
+                },
+                account_holder_name: {
+                    required: true,
+                },
+                account_number: {
+                    required: true,
+                },
+                ifsc_code: {
+                    required: true
+                },
+                // image: {
+                //     required: true
+                // },
+            },
+            messages: {
+                name: "Please enter name",
+                country_code: "Please enter country code",
+                phone: "Please enter phone",
+                bank_name: "Please enter bank name",
+                account_holder_name: "Please enter account holder name",
+                account_number: "Please enter account number",
+                music: "Please enter ifsc code",
+                // image: "Please select image"
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+
+        var $optgroups = $('#genres > option');
+  
+        // $("#category").on("change",function(){
+        //   $('#genres > option').prop('disabled', false);
+        //   var selectedVal = this.value;
+        //   console.log(selectedVal,'--selectedVal---');
+        //   console.log($optgroups,'--selectedVal---');
+          
+        //   $('#genres').html($optgroups.filter('[cat_id="'+selectedVal+'"]'));
+        // });  
+      
+    });
+    </script>

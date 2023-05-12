@@ -1,0 +1,167 @@
+<%- include('../layouts/header'); %>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Songs Add</h1>
+          </div>
+        
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <!-- <% if (flashMessage) { %>
+            <div class="alert alert-danger"><%= flashMessage %></div>
+        <% } %> -->
+      <div class="container-fluid">
+        <div class="row">
+          <!-- left column -->
+          <div class="col-md-12">
+            <!-- jquery validation -->
+            <div class="card card-primary">
+              <!-- <div class="card-header">
+                <h3 class="card-title">Quick Example <small>jQuery Validation</small></h3>
+              </div> -->
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form id="quickForm" method="post" action="/singer/song/update/<%= data.id %>" enctype="multipart/form-data">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Language</label>
+                        <select disabled class="form-control" name="category_id" id="">
+                            <!-- <option selected disabled>Select Category</option> -->
+                            <% for(let i in category){ %>
+                                <option value="<%= category[i].id %>" <%= (category[i].id == data.category_id) ? 'selected' : '' %>><%= category[i].name %></option>
+                            <% } %>
+                        </select>
+                        <!-- <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Enter Name"> -->
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Genres</label>
+                      <select disabled class="form-control" name="genres_id" id="genres">
+                          <!-- <option selected disabled>Select Genres</option> -->
+                          <% for(let i in genresData){ %>
+                              <option value="<%= genresData[i].id %>" cat_id="<%= genresData[i].category_id %>" <%= (genresData[i].id == data.genres_id) ? 'selected' : '' %> ><%= genresData[i].name %></option>
+                          <% } %>
+                      </select>
+                      <!-- <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Enter Name"> -->
+                  </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Name</label>
+                        <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Enter Name" value="<%= data.name %>">
+                    </div>
+
+                    <div class="form-group">
+                      <label for="exampleInputEmail4">Artist Name</label>
+                      <input type="text" name="artist" class="form-control" id="exampleInputEmail4" placeholder="Enter Artist name" value="<%= data.artist %>">
+                    </div>
+
+                    <div class="form-group">
+                      <label for="exampleInputEmail5">Price</label>
+                      <input type="number" name="price" class="form-control" id="exampleInputEmail5" placeholder="Enter Price" value="<%= data.price %>">
+                    </div>
+
+                    <!-- <div class="form-group">
+                        <label for="exampleInputEmail3">Description</label>
+                        <textarea name="description" class="form-control" id="exampleInputEmail3" placeholder="Enter Description"><%= data.description %></textarea>
+                    </div> -->
+                    
+                    <div class="form-group">
+                        <label for="inputExperience" class="col-sm-2 col-form-label">Upload Music Image</label>
+                        <div class="col-sm-10">
+                            <input type="file" class="form-control" id="inputSkills" name="image">
+                        </div>
+                        <img src="<%= data.image %>" class="profile-user-img img-fluid">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="inputExperience" class="col-sm-2 col-form-label">Upload Music</label>
+                        <div class="col-sm-10">
+                            <input type="file" class="form-control" id="inputSkills" name="music">
+                        </div>
+                        <audio controls>
+                            <source src="<%= data.music %>" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                          </audio>
+                    </div>
+
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </form>
+            </div>
+            <!-- /.card -->
+            </div>
+          <!--/.col (left) -->
+          <!-- right column -->
+          <div class="col-md-6">
+
+          </div>
+          <!--/.col (right) -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <%- include('../layouts/footer'); %>
+  <script>
+    $(document).ready(function () {
+      
+        $('#quickForm').validate({
+            rules: {
+                name: {
+                    required: true,
+                },
+                category_id: {
+                    required: true,
+                },
+                artist: {
+                    required: true,
+                },
+                price: {
+                    required: true,
+                },
+                // description: {
+                //     required: true,
+                // },
+                // music: {
+                //     required: true
+                // },
+                // image: {
+                //     required: true
+                // },
+            },
+            messages: {
+                name: "Please enter name",
+                category_id: "Please select category",
+                artist: "Please enter artist",
+                price: "Please enter price",
+                // description: "Please enter description",
+                // music: "Please enter music",
+                // image: "Please select image"
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+    });
+    </script>

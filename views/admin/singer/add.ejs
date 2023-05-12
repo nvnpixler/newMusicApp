@@ -1,0 +1,145 @@
+<%- include('../layouts/header'); %>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Singer Add</h1>
+          </div>
+        
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <!-- <% if (flashMessage) { %>
+            <div class="alert alert-danger"><%= flashMessage %></div>
+        <% } %> -->
+      <div class="container-fluid">
+        <div class="row">
+          <!-- left column -->
+          <div class="col-md-12">
+            <!-- jquery validation -->
+            <div class="card card-primary">
+              <!-- <div class="card-header">
+                <h3 class="card-title">Quick Example <small>jQuery Validation</small></h3>
+              </div> -->
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form id="quickForm" method="post" action="/admin/singer/store" enctype="multipart/form-data">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Name</label>
+                        <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Enter Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail3">Phone no.</label>
+                        <input type="number" name="phone" class="form-control" id="exampleInputEmail3" placeholder="Enter Phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail2">Email</label>
+                        <input type="email" name="email" class="form-control" id="exampleInputEmail2" placeholder="Enter email">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                      <input type="checkbox" name="is_popil_buds" value="1" >
+                      <label for="exampleInputEmail5">Popil buds</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputExperience" class="col-sm-2 col-form-label">Upload Image</label>
+                        <div class="col-sm-10">
+                            <input type="file" class="form-control" id="inputSkills" name="image">
+                        </div>
+                      </div>
+
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                  <div class="g-recaptcha" data-sitekey="<%= google_site_key %>" data-callback="recaptchaCallback"></div>
+                  <button type="submit" class="btn btn-primary submit" disabled>Submit</button>
+                </div>
+              </form>
+            </div>
+            <!-- /.card -->
+            </div>
+          <!--/.col (left) -->
+          <!-- right column -->
+          <div class="col-md-6">
+
+          </div>
+          <!--/.col (right) -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <%- include('../layouts/footer'); %>
+  <script>
+    $(document).ready(function () {
+
+      jQuery.validator.addMethod("email", function(value, element) {
+
+        if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(value)) {
+            return true;
+        } else {
+            return false;
+        }
+      }, "Please enter a valid Email.");
+      
+        $('#quickForm').validate({
+            rules: {
+                name: {
+                    required: true,
+                },
+                email: {
+                    required: true,
+                    email: true,
+                },
+                password: {
+                    required: true,
+                    minlength: 5
+                },
+                phone: {
+                    required: true
+                },
+                image: {
+                    required: true
+                },
+            },
+            messages: {
+                name: "Please enter name",
+                email: {
+                    required: "Please enter a email address",
+                    email: "Please enter a vaild email address"
+                },
+                password: {
+                    required: "Please provide a password",
+                    minlength: "Your password must be at least 5 characters long"
+                },
+                phone: "Please enter phone",
+                image: "Please select image"
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+    });
+    </script>

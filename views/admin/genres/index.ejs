@@ -1,0 +1,115 @@
+<%- include('../layouts/header'); %>
+
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Genres</h1>
+          </div>
+          
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <!-- <h3 class="card-title">DataTable with minimal features & hover style</h3> -->
+                
+                <div class="col-md-1 float-right">
+                    <a href="/admin/genres/create"><button type="button" class="btn btn-block btn-primary">Add</button></a>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example2" class="table table-bordered table-hover">
+                  <thead>
+                  <tr>
+                    <th>ID</th>
+                    <!-- <th>Category Name</th> -->
+                    <th>Name</th>
+                    <th>Image</th>
+                    <!-- <th>Description</th> -->
+                    <th>Status</th>
+                    <th>Added on</th>
+                    <th>Action</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                    <% let count = 1;
+                     for(let i in data){ %>
+                        <tr>
+                            <td><%= count++ %></td>
+                            <!-- <td><%= data[i].category.name %></td> -->
+                            <td><%= data[i].name %></td>
+                            <td><img class="profile-user-img img-fluid img-circle" style="height: 100px;" src="<%= data[i].image %>" alt="user profile picture"></td>
+                            <!-- <td><%= data[i].description %></td> -->
+                            <td>
+                              <!-- <% if(data[i].status == 1){ %>
+                              <span style="color:green; cursor:pointer">Active</span>
+                               <% }else { %>
+                                  <span style="color:red; cursor:pointer">Active</span>
+                               <% } %> -->
+                               <% if(data[i].status == '1'){ %>
+                                  <a class="" href="/admin/genres/update_status/<%= data[i].id %>"><button class="btn btn-success">Active</button></a>
+                                <% }else { %>
+                                  <a class="" href="/admin/genres/update_status/<%= data[i].id %>"><button class="btn btn-danger">In-Active</button></a>
+                                <% } %>
+                          </td>
+                            <td><%= moment(data[i].created_at).format('llll'); %></td>
+                            <!-- <td>
+                                <% if(data[i].status == 1){ %>
+                                <span style="color:green; cursor:pointer">Active</span>
+                                 <% }else { %>
+                                    <span style="color:red; cursor:pointer">Active</span>
+                                 <% } %>
+                            </td> -->
+                            <td> 
+                              <a href="/admin/genres/edit/<%= data[i].id %>" style="color: red;"><i class="fas fa-edit"></i></a> </i>
+                              <!-- <a href="/admin/genres/delete/<%= data[i].id %>" style="color: red;"><i class="fas fa-trash"></i></a> </i> -->
+                            </td>
+                        </tr>
+                    <% } %>
+                  </tbody>
+                  <!-- <tfoot>
+                  <tr>
+                    <th>#</th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Added By</th>
+                    <th>Category</th>
+                    <th>Artist</th>
+                    <th>Price</th>
+                    <th>Image</th>
+                    <th>Description</th>
+                    <th>Coupons Left</th>
+                    <th>Added On</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                  </tfoot> -->
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <%- include('../layouts/footer'); %>

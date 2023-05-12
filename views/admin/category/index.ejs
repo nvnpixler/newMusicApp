@@ -1,0 +1,164 @@
+<%- include('../layouts/header'); %>
+
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Languages</h1>
+          </div>
+          
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <% if (flashMessage.message) { %>
+            <div class="alert alert-success"><%= flashMessage.message %></div>
+        <% } %>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <!-- <h3 class="card-title">DataTable with minimal features & hover style</h3> -->
+                <div class="col-md-1 float-right">
+                    <a href="/admin/category/create"><button type="button" class="btn btn-block btn-primary">Add</button></a>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table module="categories" id="example2" class="table table-bordered table-hover">
+                  <thead>
+                  <tr>
+                    <!-- <th>#</th> -->
+                    <th>Position</th>
+                    <th>Name</th>
+                    <!-- <th>Description</th> -->
+                    <!-- <th>Phone no.</th> -->
+                    <th>Image</th>
+                    <!-- <th>Phone</th> -->
+                    <!-- <th>Coupons Left</th> -->
+                    <th>Added On</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                  </thead>
+                  <tbody id="row-position">
+                    <% let count = 1;
+                     for(let i in data){ %>
+                        <tr id="<%= data[i].id %>">
+                            <td><%= count++ %></td>
+                            <!-- <td><%= data[i].position %></td> -->
+                            <td><%= data[i].name %></td>
+                            <!-- <td><%= data[i].description %></td> -->
+                            <!-- <td><%= data[i].contact_number %></td> -->
+                            <td><img class="profile-user-img img-fluid img-circle" style="height: 100px;" src="<%= data[i].image %>" alt="user profile picture"></td>
+                            <!-- <td><%= data[i].phone %></td> -->
+                            <!-- <td><%= data[i].coupon_left %></td> -->
+                            <td><%= moment(data[i].created_at).format('llll'); %></td>
+                            <td>
+                                <!-- <% if(data[i].status == 1){ %>
+                                <span style="color:green; cursor:pointer">Active</span>
+                                 <% }else { %>
+                                    <span style="color:red; cursor:pointer">Active</span>
+                                 <% } %> -->
+                                 <% if(data[i].status == '1'){ %>
+                                    <a class="" href="/admin/category/update_status/<%= data[i].id %>"><button class="btn btn-success">Active</button></a>
+                                  <% }else { %>
+                                    <a class="" href="/admin/category/update_status/<%= data[i].id %>"><button class="btn btn-danger">In-Active</button></a>
+                                  <% } %>
+                            </td>
+                            <td> 
+                              <a href="/admin/category/edit/<%= data[i].id %>" style="color: red;"><i class="fas fa-edit"></i></a> </i>
+                              <!-- <a href="/admin/category/delete/<%= data[i]._id %>" style="color: red;"><i class="fas fa-trash"></i></a> </i> -->
+                            </td>
+                        </tr>
+                    <% } %>
+                  </tbody>
+                  <!-- <tfoot>
+                  <tr>
+                    <th>#</th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Phone no.</th>
+                    <th>Image</th>
+                    <th>Phone</th>
+                    <th>Coupons Left</th>
+                    <th>Added On</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                  </tfoot> -->
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <%- include('../layouts/footer'); %>
+  <script>
+    $(document).ready(function () {
+
+      const currentModule = $('#example2').attr('module')
+
+      $('#row-position').sortable({
+          delay: 150,
+          update: function () {
+              var selectedData = new Array();
+              $('#row-position>tr').each(function () {
+                  // alert('hi')
+                  // console.log(this)
+                  selectedData.push($(this).attr('id'));
+
+
+                  console.log(selectedData, 'selectedData<<<<<<<<<<<<<<')
+              })
+              updateOrder(selectedData,currentModule)
+
+
+          }
+      })
+
+      function updateOrder(selectedData,moduleName) {
+
+        console.log('selectedData', selectedData);
+
+        $.ajax({
+            url: '/admin/category/change_order',
+            dataType: "json",
+            type: "POST",
+            data: {
+                moduleName,
+                selectedData: selectedData,
+            },
+            success: function (response) {
+                console.log("response", response);
+                // process(response.data);
+                window.location.reload()
+            },
+            error: function (error) {
+                console.log('error')
+            }
+        });
+
+    }
+
+
+    });
+
+  </script>

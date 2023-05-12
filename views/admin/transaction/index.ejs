@@ -1,0 +1,107 @@
+<%- include('../layouts/header'); %>
+
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Transactions</h1>
+          </div>
+          
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <!-- <h3 class="card-title">DataTable with minimal features & hover style</h3> -->
+                <!-- <div class="col-md-1 float-right">
+                    <a href="/admin/singer/create"><button type="button" class="btn btn-block btn-primary">Add</button></a>
+                </div> -->
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example2" class="table table-bordered table-hover">
+                  <thead>
+                  <tr>
+                    <!-- <th>#</th> -->
+                    <th>ID</th>
+                    <th>User Name</th>
+                    <th>Singer Name</th>
+                    <th>Song Name</th>
+                    <th>Transaction No</th>
+                    <!-- <th>Phone no.</th> -->
+                    <!-- <th>Image</th> -->
+                    <th>Amount</th>
+                    <th>Payment Status</th>
+                    <!-- <th>Coupons Left</th> -->
+                    <th>Transaction Date</th>
+                    <!-- <th>Status</th> -->
+                    <!-- <th>Action</th> -->
+                  </tr>
+                  </thead>
+                  <tbody>
+                    <% let count = 1;
+                     for(let i in data){ %>
+                        <tr>
+                            <td><%= count++ %></td>
+                            <td><%= data[i].user.name %> <br><%= data[i].user.email %></td>
+                            <td><%= data[i].singer.name %> <br><%= data[i].singer.email %></td>
+                            <td><a href="/admin/song/view/<%= data[i].song_id %>"> <%= data[i].song.name %></a></td>
+                            <td><%= data[i].transaction_id %></td>
+                            <td><%= data[i].amount %></td>
+                            <td><%= data[i].payment_status == 1 ? 'Completed' : '' %></td>
+                            
+                           
+                            <td><%= moment(data[i].created_at).format('llll'); %></td>
+                            <!-- <td>
+                                <% if(data[i].status == 1){ %>
+                                <span style="color:green; cursor:pointer">Active</span>
+                                 <% }else { %>
+                                    <span style="color:red; cursor:pointer">Active</span>
+                                 <% } %>
+                            </td> -->
+                            <!-- <td> <a href="/admin/user/delete/<%= data[i]._id %>" style="color: red;"><i class="fas fa-trash"></i></a> </i></td> -->
+                        </tr>
+                    <% } %>
+                  </tbody>
+                  <!-- <tfoot>
+                  <tr>
+                    <th>#</th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone no.</th>
+                    <th>Image</th>
+                    <th>Phone</th>
+                    <th>Coupons Left</th>
+                    <th>Joined Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                  </tfoot> -->
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <%- include('../layouts/footer'); %>

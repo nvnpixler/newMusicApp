@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title><%= appName %></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="icon" href="/images/fav.png" type="image/png" sizes="16x16">
+    <link href="/web_assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="/web_assets/css/owl.theme.default.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/54ab3be641.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/web_assets/icofont/icofont.min.css">
+    <link href="/web_assets/css/owl.carousel.css" rel="stylesheet">
+    <link href="/web_assets/css/reset.css" rel="stylesheet">
+    <link href="/web_assets/css/aos.css" rel="stylesheet">
+    <link href="/web_assets/css/style.css" rel="stylesheet" type="text/css" media="all" />
+
+
+</head>
+
+<body>
+
+    <div class="main_nav" id="Home">
+        <div class="container">
+            <div class="row">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <!-- <a class="navbar-brand" href="/"><img src="/web_assets/images/logo.png" alt="" /></a> -->
+                    <a class="navbar-brand" href="/"><img src="/images/logo_3.png" alt="" /></a>
+                    <!-- <a class="navbar-brand" href="/">
+                        <img height="90" width="110" src="/images/logo.png" alt="" />
+                    </a> -->
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse ml-auto" id="navbarNav">
+                        <ul class="nav navbar-nav ml-auto align-items-center">
+                            <li class="<%= title=='home' ? 'active' : '' %>"><a href="/">Home   </a></li>
+                            <li class="<%= title=='about' ? 'active' : '' %>"><a href="/about">About Us </a></li>
+                            <!-- <li><a href="#Contact"> Contact Us  </a></li> -->
+                            <li class="<%= title=='contact_us' ? 'active' : '' %>"><a href="/contact_us"> Contact Us  </a></li>
+                            <li class="<%= title=='home' ? 'active' : '' %>"><a href class="design"> Get The App  </a></li>
+                            <li>
+                                <a href="#Get_app" class="get_app "><img src="/web_assets/images/app.png" alt="app-store"></a>
+                            </li>
+                            <li>
+                                <a href="#Get_app" class="get_app "><img src="/web_assets/images/play.png" alt="play-store"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,82 @@
+<%- include('../layouts/header'); %>
+
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Popil Pick Songs</h1>
+          </div>
+          
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <!-- <h3 class="card-title">DataTable with minimal features & hover style</h3> -->
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example2" class="table table-bordered table-hover">
+                  <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Added By</th>
+                    <th>Language</th>
+                    <th>Genres</th>
+                    <th>Artist</th>
+                    <th>Price</th>
+                    <th>Popil Picks</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                    <% let count = 1;
+                     for(let i in data){ 
+                        if(data[i].popil_pick_song == null || (data[i].popil_pick_song && data[i].popil_pick_song.popil_pick_id == popil_pick_id)){
+                        %>
+                        <tr>
+                            <td><%= count++ %></td>
+                            <td><%= data[i].name %></td>
+                            <td><%= data[i].user.name %></td>
+                            <td><%= data[i].category.name %></td>
+                            <td><%= data[i].genre.name %></td>
+                            <td><%= data[i].artist %></td>
+                            <td>₹ <%= data[i].price %></td>
+                            <td>
+                              <% if(data[i].dataValues.is_popil_song_added == 0){ %>
+                                <a class="" href="/admin/popil_pick/add_song_to_popil_pick/<%= popil_pick_id %>/<%= data[i].id %>"><button class="btn btn-primary">Add to popil picks</button></a>
+                              <% }else { %>
+                                <!-- <a class="" href="#"><button class="btn btn-success">Added</button></a> -->
+                                <a class="" href="/admin/popil_pick/add_song_to_popil_pick/<%= popil_pick_id %>/<%= data[i].id %>"><button class="btn btn-danger">Remove from popil picks</button></a>
+                              <% } %>
+                            </td>
+                        </tr>
+                    <% } } %>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <%- include('../layouts/footer'); %>

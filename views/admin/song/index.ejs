@@ -1,0 +1,159 @@
+<%- include('../layouts/header'); %>
+
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Songs</h1>
+          </div>
+          
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <!-- <h3 class="card-title">DataTable with minimal features & hover style</h3> -->
+                <form id="quickForm" method="get" action="/admin/song/list" enctype="multipart/form-data">
+                  <div class="card-body">
+                    <div class="form-group row">
+                      <div class="col-md-3">
+                        <label for="exampleInputEmail1">Search by Singer</label>
+                        <select class="form-control" name="singer" id="">
+                            <option selected disabled>Select Singer</option>
+                            <% for(let i in singers){ %>
+                              <option value="<%= singers[i].id %>" <%= (whereCondition.user_id == singers[i].id) ? 'selected': '' %> ><%= singers[i].name %></option>
+                            <% } %>
+                        </select>
+                      </div>
+                      <div class="col-md-3">
+                        <label for="exampleInputEmail1">Search by Language</label>
+                        <select class="form-control" name="category" id="">
+                            <option selected disabled>Select Language</option>
+                            <% for(let i in category){ %>
+                              <option value="<%= category[i].id %>" <%= (whereCondition.category_id == category[i].id) ? 'selected': '' %> ><%= category[i].name %></option>
+                            <% } %>
+                        </select>
+                      </div>
+                      <div class="col-md-1" style="margin-top: 31px;">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                      </div>
+                      <div class="col-md-3" style="margin-top: 31px;">
+                        
+                        <button type="button" class="btn btn-warning"><a href="/admin/song/list" style="color: white;">Clear filter</a></button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                
+                <div class="col-md-1 float-right">
+                    <a href="/admin/song/create"><button type="button" class="btn btn-block btn-primary">Add</button></a>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example2" class="table table-bordered table-hover">
+                  <thead>
+                  <tr>
+                    <!-- <th>#</th> -->
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Added By</th>
+                    <th>Language</th>
+                    <th>Genres</th>
+                    <th>Artist</th>
+                    <th>Price</th>
+                    <!-- <th>Image</th> -->
+                    <!-- <th>Description</th> -->
+                    <th>Hall of fame</th>
+                    <th>Added On</th>
+                    <!-- <th>Status</th> -->
+                    <th>Action</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                    <% let count = 1;
+                     for(let i in data){ %>
+                        <tr>
+                            <td><%= count++ %></td>
+                            <td><%= data[i].name %></td>
+                            <td><%= data[i].user.name %></td>
+                            <td><%= data[i].category.name %></td>
+                            <td><%= data[i].genre.name %></td>
+                            <td><%= data[i].artist %></td>
+                            <td>₹ <%= data[i].price %></td>
+                            <td>
+                              <% if(data[i].is_hall_of_fame == 1){ %>
+                                <a href="#"><button type="button" class="btn btn-block btn-success">Yes</button></a>
+                              <% }else{ %>
+                                <a href="#"><button type="button" class="btn btn-block btn-danger">No</button></a>
+                              <% } %>
+                            </td>
+                            <!-- <td><img class="profile-user-img img-fluid img-circle" style="height: 100px;" src="<%= data[i].image %>" alt="user profile picture"></td> -->
+                            <!-- <td><%= data[i].description %></td> -->
+                            <!-- <td>
+                              <audio controls>
+                                <source src="<%= data[i].music %>" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                              </audio>
+                            </td> -->
+                            <!-- <td><%= data[i].coupon_left %></td> -->
+                            <td><%= moment(data[i].created_at).format('llll'); %></td>
+                            <!-- <td>
+                                <% if(data[i].status == 1){ %>
+                                <span style="color:green; cursor:pointer">Active</span>
+                                 <% }else { %>
+                                    <span style="color:red; cursor:pointer">Active</span>
+                                 <% } %>
+                            </td> -->
+                            <td> 
+                              <a href="/admin/song/view/<%= data[i].id %>" style="color: red;"><i class="fas fa-eye"></i></a> </i>
+                              <a href="/admin/song/edit/<%= data[i].id %>" style="color: red;"><i class="fas fa-edit"></i></a> </i>
+                              <a href="/admin/song/delete/<%= data[i].id %>" style="color: red;"><i class="fas fa-trash"></i></a> </i>
+                            </td>
+                        </tr>
+                    <% } %>
+                  </tbody>
+                  <!-- <tfoot>
+                  <tr>
+                    <th>#</th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Added By</th>
+                    <th>Category</th>
+                    <th>Artist</th>
+                    <th>Price</th>
+                    <th>Image</th>
+                    <th>Description</th>
+                    <th>Coupons Left</th>
+                    <th>Added On</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                  </tfoot> -->
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <%- include('../layouts/footer'); %>
