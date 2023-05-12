@@ -73,6 +73,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+console.log(process.env.NODE_ENV)
+
 server.listen(global.appPort, (err, resu) => {
   if (err) throw err;
   console.log(`server listening on port: ${global.appPort}`);
