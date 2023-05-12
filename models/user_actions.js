@@ -63,6 +63,5 @@ module.exports = function (sequelize, DataTypes) {
         user_actions.belongsTo(models.songs, { foreignKey: 'song_id', hooks: false });
     };
 
-
     return user_actions;
 };

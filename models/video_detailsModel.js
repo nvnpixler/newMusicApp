@@ -7,51 +7,25 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: true,
             primaryKey: true
         },
-        category: {
+        category_id: {
+            type: DataTypes.INTEGER(11),
+            allowNull: false
+        },
+        genres_id: {
+            type: DataTypes.INTEGER(11),
+            allowNull: false
+        },
+        user_id: {
+            type: DataTypes.INTEGER(11),
+            allowNull: false
+        },
+        name: {
             type: DataTypes.STRING(255),
-            allowNull: true,
-            defaultValue: "",
+            allowNull: false
         },
-        title: {
+        artist: {
             type: DataTypes.STRING(255),
-            allowNull: true,
-            defaultValue: "",
-        },
-        discription: {
-            type: DataTypes.TEXT,
-            allowNull: true,
-            defaultValue: '',
-        },
-        language: {
-            type: DataTypes.ARRAY(DataTypes.STRING(25)),
-            allowNull: true,
-            defaultValue: "",
-        },
-        duration: {
-            type: DataTypes.STRING(5),
-            allowNull: true,
-            defaultValue: "",
-        },
-        videoThumnail: {
-            type: DataTypes.STRING(255),
-            allowNull: true,
-            defaultValue: "null",
-        },
-        videoURL: {
-            type: DataTypes.STRING(255),
-            allowNull: true,
-            defaultValue: "null",
-        },
-        genre: {
-            type: DataTypes.ARRAY(DataTypes.STRING(25)),
-            allowNull: true,
-            defaultValue: "",
-        },
-        isAdult: {
-            type: DataTypes.ENUM("0", "1"),
-            allowNull: true,
-            defaultValue: 0,
-            comment: "0=inactive, 1=active"
+            allowNull: false
         },
         director: {
             type: DataTypes.STRING(255),
@@ -62,8 +36,47 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING(255),
             allowNull: true,
             defaultValue: "",
+        },
+        price: {
+            type: DataTypes.STRING(10),
+            allowNull: false,
+            defaultValue: '0',
+        },
+        description: {
+            type: DataTypes.TEXT,
+            allowNull: false
+        },
+        duration: {
+            type: DataTypes.STRING(5),
+            allowNull: true,
+            defaultValue: "",
+        },
+        image: {
+            type: DataTypes.STRING(255),
+            allowNull: false,
+            defaultValue: '',
+        },
+        videoURL: {
+            type: DataTypes.STRING(255),
+            allowNull: true,
+            defaultValue: "null",
+        },
+        status: {
+            type: DataTypes.ENUM("0", "1"),
+            allowNull: false,
+            defaultValue: "1",
+            comment: "0=inactive, 1=active"
+        },
+        created_at: {
+            type: DataTypes.DATE,
+            allowNull: false,
+            defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+        },
+        updated_at: {
+            type: DataTypes.DATE,
+            allowNull: false,
+            defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
         }
-
     }, {
         sequelize,
         tableName: 'video_details',
@@ -80,10 +93,18 @@ module.exports = function (sequelize, DataTypes) {
         ],
     });
 
-    video_details.associate = models => {
-        video_details.hasMany(models.transactions, { foreignKey: 'video_detail_id', hooks: false, as: 'video_detail' });
-        video_details.hasOne(models.singer_banks, { foreignKey: 'video_detail_id', hooks: false });
-    };
+    // video_details.associate = models => {
+    //     video_details.hasMany(models.transactions, { foreignKey: 'video_detail_id', hooks: false, as: 'video_detail' });
+    //     video_details.hasOne(models.singer_banks, { foreignKey: 'video_detail_id', hooks: false });
+    // };
+
+    video_details.sync()
+    .then(() => {
+        console.log('table created successfully.');
+    })
+    .catch((error) => {
+        console.error('Error creating table:', error);
+    });
 
     return video_details;
 };

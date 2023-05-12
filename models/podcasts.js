@@ -62,6 +62,14 @@ module.exports = function(sequelize, DataTypes) {
     podcasts.associate = models => {
 		podcasts.belongsTo(models.users, { foreignKey: 'added_by', hooks: false });
 	};
+    
+    podcasts.sync()
+    .then(() => {
+        console.log('table created successfully.');
+    })
+    .catch((error) => {
+        console.error('Error creating table:', error);
+    });
 
 
   return podcasts;

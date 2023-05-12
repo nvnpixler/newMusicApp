@@ -60,7 +60,13 @@ module.exports = function (sequelize, DataTypes) {
         genres.belongsTo(models.categories, { foreignKey: 'category_id', hooks: false });
     };
 
-    
+    // genres.sync()
+    // .then(() => {
+    //     console.log('table created successfully.');
+    // })
+    // .catch((error) => {
+    //     console.error('Error creating table:', error);
+    // });
 
     return genres;
 };

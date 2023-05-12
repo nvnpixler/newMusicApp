@@ -69,14 +69,14 @@ module.exports = function (sequelize, DataTypes) {
         singer_banks.belongsTo(models.users, { foreignKey: 'user_id', hooks: false });
     };
 
-    // Sync the model with the database
-    singer_banks.sync()
-        .then(() => {
-            console.log('table created successfully.');
-        })
-        .catch((error) => {
-            console.error('Error creating table:', error.message);
-        });
+    // // Sync the model with the database
+    // singer_banks.sync()
+    //     .then(() => {
+    //         console.log('table created successfully.');
+    //     })
+    //     .catch((error) => {
+    //         console.error('Error creating table:', error.message);
+    //     });
 
     return singer_banks;
 };

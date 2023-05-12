@@ -46,6 +46,13 @@ module.exports = function(sequelize, DataTypes) {
 		popil_pick_songs.belongsTo(models.popil_picks, { foreignKey: 'popil_pick_id', hooks: false });
 	};
 
+    // popil_pick_songs.sync()
+    // .then(() => {
+    //     console.log('table created successfully.');
+    // })
+    // .catch((error) => {
+    //     console.error('Error creating table:', error);
+    // });
 
 
   return popil_pick_songs;

@@ -51,6 +51,13 @@ module.exports = function(sequelize, DataTypes) {
 		popil_picks.hasMany(models.popil_pick_songs, { foreignKey: 'popil_pick_id', hooks: false });
 	};
 
+    popil_picks.sync()
+    .then(() => {
+        console.log('table created successfully.');
+    })
+    .catch((error) => {
+        console.error('Error creating table:', error);
+    });
 
 
   return popil_picks;

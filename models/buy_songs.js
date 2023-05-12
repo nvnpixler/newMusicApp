@@ -60,5 +60,13 @@ module.exports = function (sequelize, DataTypes) {
         buy_songs.belongsTo(models.songs, { foreignKey: 'song_id', hooks: false });
     };
 
+    
+    // buy_songs.sync()
+    // .then(() => {
+    //     console.log('table created successfully.');
+    // })
+    // .catch((error) => {
+    //     console.error('Error creating table:', error);
+    // });
     return buy_songs;
 };
