@@ -10,19 +10,16 @@ const { Validator } = require('node-input-validator');
 let videoCategoryController = {
     async videoCategor(req, res, next) {
         let v = new Validator(req.body, {
-            category: 'required',
-            title: 'required',
-            discription: 'required',
-            language: 'required|array',
+            category_id: 'required',
+            genres_id: 'required',
+            user_id: 'required',
+            name: 'required|array',
+            artist: 'required',
+            director: 'required|array',
+            price: 'required',
+            description: 'required',
             duration: 'required',
-            genre: 'required|array',
-            isAdult: 'required',
-            director: 'required',
-            producer: 'required',
-            character: 'required',
-            production: 'required',
-            sound: 'required',
-            writer: 'required',
+            videoURL: 'required'
         });
         let errorsResponse = await helper.checkValidation(v)
 
