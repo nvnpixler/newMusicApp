@@ -39,14 +39,8 @@ let videoCategoryController = {
             country,
             rating,
             genre,
-            season,
-            likes,
-            isAdult,
-
             director,
             producer,
-            character,
-            production,
             sound,
             writer
         } = req.body
