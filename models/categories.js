@@ -58,13 +58,13 @@ module.exports = function(sequelize, DataTypes) {
     });
 
         // Sync the model with the database
-        categories.sync()
-        .then(() => {
-            console.log('table created successfully.');
-        })
-        .catch((error) => {
-            console.error('Error creating table:', error);
-        });
+        // categories.sync()
+        // .then(() => {
+        //     console.log('table created successfully.');
+        // })
+        // .catch((error) => {
+        //     console.error('Error creating table:', error);
+        // });
 
     // categories.associate = models => {
 	// 	categories.hasOne(models.user_details, { foreignKey: 'user_id', hooks: false });

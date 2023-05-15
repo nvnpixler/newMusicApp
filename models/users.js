@@ -152,14 +152,7 @@ module.exports = function (sequelize, DataTypes) {
         ],
     });
 
-    // Sync the model with the database
-    users.sync()
-        .then(() => {
-            console.log('User table created successfully.');
-        })
-        .catch((error) => {
-            console.error('Error creating User table:', error.message);
-        });
+
 
     users.associate = models => {
         users.hasMany(models.transactions, { foreignKey: 'user_id', hooks: false, as: 'user' });

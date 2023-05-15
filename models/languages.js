@@ -43,12 +43,12 @@ module.exports = function(sequelize, DataTypes) {
         ],
     });
     // Sync the model with the database
-    languages.sync()
-        .then(() => {
-            console.log('table created successfully.');
-        })
-        .catch((error) => {
-            console.error('Error creating table:', error);
-        });
+    // languages.sync()
+    //     .then(() => {
+    //         console.log('table created successfully.');
+    //     })
+    //     .catch((error) => {
+    //         console.error('Error creating table:', error);
+    //     });
   return languages;
 };

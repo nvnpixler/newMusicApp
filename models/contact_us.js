@@ -48,12 +48,12 @@ module.exports = function (sequelize, DataTypes) {
         ],
     });
     // Sync the model with the database
-    contact_us.sync()
-        .then(() => {
-            console.log('table created successfully.');
-        })
-        .catch((error) => {
-            console.error('Error creating table:', error);
-        });
+    // contact_us.sync()
+    //     .then(() => {
+    //         console.log('table created successfully.');
+    //     })
+    //     .catch((error) => {
+    //         console.error('Error creating table:', error);
+    //     });
     return contact_us;
 };

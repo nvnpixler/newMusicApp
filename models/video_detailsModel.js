@@ -93,18 +93,19 @@ module.exports = function (sequelize, DataTypes) {
         ],
     });
 
-    // video_details.associate = models => {
-    //     video_details.hasMany(models.transactions, { foreignKey: 'video_detail_id', hooks: false, as: 'video_detail' });
-    //     video_details.hasOne(models.singer_banks, { foreignKey: 'video_detail_id', hooks: false });
-    // };
+    video_details.associate = models => {
+        video_details.belongsTo(models.users, { foreignKey: 'user_id', hooks: false });
+        video_details.belongsTo(models.categories, { foreignKey: 'category_id', hooks: false });
+        video_details.belongsTo(models.genres, { foreignKey: 'genres_id', hooks: false });
+    };
 
-    video_details.sync()
-    .then(() => {
-        console.log('table created successfully.');
-    })
-    .catch((error) => {
-        console.error('Error creating table:', error);
-    });
+    // video_details.sync()
+    // .then(() => {
+    //     console.log('table created successfully.');
+    // })
+    // .catch((error) => {
+    //     console.error('Error creating table:', error);
+    // });
 
     return video_details;
 };

@@ -122,6 +122,8 @@ router.get('/contact_us', webHomePicksController.contact_us);
 
 /*-------------------Video Category Routes---------------------------*/
 
+router.get('/admin/video/list', videoController.index);
+router.get('/admin/video/create', videoController.create);
 router.post('/admin/add_video_details', videoController.addVideo)
 router.get('/admin/get_videos', videoController.getVideo)
 router.get('/admin/getVide/:id', videoController.view)

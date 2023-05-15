@@ -436,6 +436,20 @@ module.exports = {
             throw err;
         }
     },
+
+    getVideoById: async (id) => {
+        try {
+           let getData =  await models['video_details'].findOne({
+                where: {
+                    id:id
+                },
+                raw:true
+            })
+            return getData;
+        } catch (err) {
+            throw err;
+        }
+    },
     
     getPlaylistById: async (id) => {
         try {

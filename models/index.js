@@ -48,6 +48,6 @@ db.Sequelize = Sequelize;
 //   console.error("Error syncing database: ", err);
 // });
 
-db.video_details = require('./video_detailsModel.js')(sequelize, Sequelize.DataTypes)
+// db.video_details = require('./video_detailsModel.js')(sequelize, Sequelize.DataTypes)
 
 module.exports = db;

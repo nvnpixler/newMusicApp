@@ -79,7 +79,7 @@ module.exports = {
     
                 await models[modelName].create(req.body);
             }
-            let msgType = req.body.status == 1 ? 'liked' : 'unliked'
+            
             if(req.body.status == 1){
                 let getSongData = await helper.getSongById(req.body.song_id);
                 let saveNotificationObj = {

@@ -1,15 +1,100 @@
 const models = require('../../models');
 const helper = require('../../helpers/helper');
-const sequelize = require('sequelize');
-const path = require('path');
-const multer = require('multer')
-const Joi = require('joi');
-const saltRounds = 10;
-const Op = sequelize.Op
-const modelName = "video_details";
 const { Validator } = require('node-input-validator');
+const sequelize = require('sequelize');
+const Op = sequelize.Op;
+const modelName = "video_details";
+
 
 let videoCategoryController = {
+
+    index : async(req, res)=>{
+        try{
+            let category = await models['categories'].findAll({
+                where:{
+                    status:'1'
+                }
+            })
+            let genresData = await models['genres'].findAll({
+                where:{
+                    status:'1'
+                }
+            });
+            let singers = await models['users'].findAll({
+                where:{
+                    role:'1'
+                }
+            });
+
+            let whereCondition = {}
+
+            if(req.query.singer && req.query.singer!=''){
+                whereCondition.user_id = req.query.singer
+            }
+            if(req.query.category && req.query.category!=''){
+                whereCondition.category_id = req.query.category
+            }
+            let data = await models[modelName].findAll({
+                include:[
+                    {
+                        model:models['users'],
+                        attibutes:['id','name']
+                    },
+                    {
+                        model:models['categories'],
+                        attibutes:['id','name']
+                    },
+                    {
+                        model:models['genres'],
+                        attibutes:['id','name']
+                    }
+                ],
+                where: {...whereCondition},
+                order:[['id','DESC']]
+            });
+            // console.log('----',data,'-------');
+            res.render('admin/video/index',{
+                data,
+                category,
+                genresData,
+                singers,
+                title: 'video',
+                whereCondition,
+            });
+        } catch(err){
+            console.log(err);
+            return helper.error(res, err);
+        }
+    },
+
+    create: async function(req, res) {
+        try{
+            let category = await models['categories'].findAll({
+                where:{
+                    status:'1'
+                }
+            })
+            let genresData = await models['genres'].findAll({
+                where:{
+                    status:'1'
+                }
+            })
+            let singers = await models['users'].findAll({
+                where:{
+                    role:'1'
+                }
+            })
+            res.render('admin/video/add',{
+                title: 'video',
+                category,
+                genresData,
+                singers
+            }); 
+        } catch(err){
+            console.log(err);
+            return helper.error(res, err);
+        }
+    },
 
     async addVideo(req, res, next) {
         let v = new Validator(req.body, {

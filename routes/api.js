@@ -8,6 +8,7 @@ var podcastController = require('../controllers/Api/PodcastController');
 var playlistController = require('../controllers/Api/PlaylistController');
 var notificationController = require('../controllers/Api/NotificationController');
 var lovedSongController = require('../controllers/Api/LovedSongController');
+var lovedVideoController = require('../controllers/Api/LovedVideoController');
 var buySongController = require('../controllers/Api/BuySongController');
 let responseController = require('../controllers/Api/ResponseController');
 //file upload
@@ -77,5 +78,9 @@ router.post('/podcast/list_by_category',requireAuthentication, podcastController
 
 //User reponses api
 router.get('/like_video',requireAuthentication, responseController.like_video);
+
+//love song api
+router.get('/loved_video_list', lovedVideoController.loved_video_list);
+router.post('/love_unlove_video', lovedVideoController.love_unLike_video);
 
 module.exports = router;

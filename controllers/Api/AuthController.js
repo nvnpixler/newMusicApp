@@ -402,6 +402,8 @@ module.exports = {
 
             let time = helper.unixTimestamp();
 
+            console.log(time)
+
             await models[modelName].update({ 
                 login_time: time,
                 device_token:req.body.device_token,
