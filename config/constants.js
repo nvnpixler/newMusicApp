@@ -28,7 +28,12 @@ global.copyrightYear = '2021';
 
 global.jwtSecretKey = 'asafdadfa1231asdfaakf123124o1i24bcd';
 
-global.google_site_key = '6Lf6uvkhAAAAAJaP9UZbJJTR7NRFBLeTm7XbRg58';
+//production
+// global.google_site_key = '6Lf6uvkhAAAAAJaP9UZbJJTR7NRFBLeTm7XbRg58';
+
+//development
+global.google_site_key = '6LfqVQ0mAAAAAG8ht9FF1zmkRjdsLHG9PDdqV4TR';
+
 
 global.twilioSID = 'ACf24aef68e18c1e5c5d777dab213ae5f3';
 global.twilioToken = '474b06ff1c8b390646afaedf983a02e1';
