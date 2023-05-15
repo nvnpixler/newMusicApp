@@ -5,73 +5,120 @@ const path = require('path');
 const multer = require('multer')
 const Joi = require('joi');
 const saltRounds = 10;
+const Op = sequelize.Op
 const modelName = "video_details";
 const { Validator } = require('node-input-validator');
+
 let videoCategoryController = {
-    async videoCategor(req, res, next) {
+
+    async addVideo(req, res, next) {
         let v = new Validator(req.body, {
             category_id: 'required',
             genres_id: 'required',
             user_id: 'required',
-            name: 'required|array',
+            name: 'required',
             artist: 'required',
-            director: 'required|array',
+            director: 'required',
+            producer: 'required',
             price: 'required',
             description: 'required',
             duration: 'required',
             videoURL: 'required'
         });
-        let errorsResponse = await helper.checkValidation(v)
-
+        var errorsResponse
+        await v.check().then(function (matched) {
+            if (!matched) {
+                var valdErrors = v.errors;
+                var respErrors = [];
+                Object.keys(valdErrors).forEach(function (key) {
+                    if (valdErrors && valdErrors[key] && valdErrors[key].message) {
+                        respErrors.push(valdErrors[key].message);
+                    }
+                });
+                errorsResponse = respErrors.join(', ');
+                // return helper.error(res, errorsResponse)
+            }
+        });
         if (errorsResponse) {
-            return helper.failed(res, errorsResponse)
+            return helper.error(res, errorsResponse)
         }
-        const data = {
-            category,
-            title,
-            videoTrailerURL,
-            discription,
-            videoThumnail: req.file.filename,
-            released,
-            year,
-            language,
-            duration,
-            country,
-            rating,
-            genre,
-            director,
-            producer,
-            sound,
-            writer
-        } = req.body
-        try {
-            let video_detail = await models[modelName].create(data);
-            if (video_detail) {
-                res.status(200).json({ status: true, result: 'New video added successfully' })
+        let checkName = await models[modelName].findOne({
+            where: {
+                name: req.body.name
             }
-            else {
-                res.send("Internal Server Error")
+        });
+
+        if (checkName) {
+            res.send("Video name already exists!.")
+            // req.flash('flashMessage', { color: 'error', message: 'Video name already exists!.' });
+            // res.redirect('/singer/song/create')
+        } else {
+            let image = ''
+            if (req.files && req.files.image) {
+                let imageName = helper.fileUpload(req.files.image, 'video', 'uploads');
+                image = imageName
             }
-        }
-        catch (err) {
-            console.log(err)
-            res.send(err)
+
+            let body = {
+                name: req.body.name,
+                category_id: req.body.category_id,
+                genres_id: req.body.genres_id,
+                user_id: req.body.user_id,
+                name: req.body.name,
+                artist: req.body.artist,
+                director: req.body.director,
+                producer: req.body.producer,
+                price: req.body.price,
+                description: req.body.description ? req.body.description : '',
+                duration: req.body.duration,
+                image: image,
+                videoURL: req.body.videoURL,
+                artist: req.body.artist,
+                price: req.body.price
+            }
+
+            try {
+                let createVideo = await models[modelName].create(body);
+                if (createVideo) {
+                    res.send(createVideo)
+                }
+                else {
+                    res.send("Internal Server Error")
+                }
+            }
+            catch (err) {
+                console.log(err)
+                res.send(err)
+            }
+
         }
     },
 
-    async getVideoCategory(req, res) {
+    async getVideo(req, res) {
         try {
             let list = await models[modelName].findAll({});
-            res.json(list)
-            // res.render('admin/category/index',{
-            //     data: list,
-            //     title: 'category',
-            // });
+            res.json(list);
         } catch (err) {
             return helper.error(res, err);
         }
     },
-    async deletevideoCategory(req, res) {
+
+    view: async function (req, res) {
+        try {
+            let data = await models[modelName].findOne({
+                where: {
+                    id: req.params.id
+                }
+            });
+
+            res.send(data)
+        } catch (err) {
+            console.log(err);
+            return helper.error(res, err);
+        }
+    },
+
+    async deletevideo(req, res) {
         const id = req.params.id
         try {
             await models[modelName].destroy({
@@ -85,39 +132,51 @@ let videoCategoryController = {
             res.json(err)
         }
     },
-    updateVideoCategory: async function (req, res) {
-        const updateVideoCategory = {
-            category: req.body.category,
-            title: req.body.title,
-            videoTrailerURL: req.body.videoTrailerURL,
-            discription: req.body.discription,
-            released: req.body.released,
-            videoThumnail: req.file.filename ? req.file.filename : "",
-            year: req.body.year,
-            language: req.body.language,
-            duration: req.body.duration,
-            country: req.body.country,
-            genre: req.body.genre,
-            season: req.body.season,
-            isAdult: req.body.isAdult,
-            director: req.body.director,
-            producer: req.body.producer,
-            character: req.body.character,
-            production: req.body.production,
-            sound: req.body.sound,
-            writer: req.body.writer
-        }
+
+    async updateVideo(req, res) {
         try {
-            await models[modelName].update(updateVideoCategory, { where: { id: req.params.id } })
-                .then(() => {
-                    res.json("updated...")
-                })
-                .catch((err) => {
-                    res.json("Something went wrong", err)
-                })
-            // let message = 'Profile updated successfully.';
-            // req.flash('flashMessage', { color: 'success', message });
-            // res.redirect('/singer/getProfile')
+            let data = await models[modelName].findOne({
+                where: {
+                    id: req.params.id
+                }
+            });
+            if (data) {
+                let checkName = await models[modelName].findOne({
+                    where: {
+                        name: req.body.name,
+                        id: { [Op.ne]: req.params.id }
+                    }
+                });
+
+                if (checkName) {
+                    req.send('Video name already exists!')
+                } else {
+                        data.name = req.body.name,
+                        data.category_id = req.body.category_id,
+                        data.genres_id = req.body.genres_id,
+                        data.user_id = req.body.user_id,
+                        data.name = req.body.name,
+                        data.artist = req.body.artist,
+                        data.director = req.body.director,
+                        data.producer = req.body.producer,
+                        data.price = req.body.price,
+                        data.description = req.body.description ? req.body.description : '',
+                        data.duration = req.body.duration,
+                        data.videoURL = req.body.videoURL,
+                        data.artist = req.body.artist,
+                        data.price = req.body.price
+                    if (req.files && req.files.image) {
+                        let imageName = helper.fileUpload(req.files.image, 'songs', 'uploads');
+                        data.image = imageName
+                    }
+
+                    data.save();
+
+                    let message = 'Video updated successfully!';
+
+                    res.json(message)
+                }
+            }
         } catch (err) {
             console.log(err);
             return helper.error(res, err);

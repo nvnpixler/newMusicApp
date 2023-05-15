@@ -15,29 +15,29 @@ jwtOptions.secretOrKey = jwtSecretKey;
 
 // Create JWT Strategy
 // module.exports = passport => {
-    passport.use('user', new JwtStrategy(jwtOptions, 
-        async function(payload, done) {
-            try {
-                console.log(payload,'---payload--');
-				const existingUser = await User.findOne({
-                    where:{
-						id: payload.data.id,
-						// email: payload.data.email,
-						login_time: payload.iat
-                    }
-				});
-                if (existingUser) {
-                    // console.log(existingUser.dataValues, '===============>loggedInUser');
-                    return done(null, existingUser);
+passport.use('user', new JwtStrategy(jwtOptions,
+    async function (payload, done) {
+        try {
+            console.log(payload, '---payload--');
+            const existingUser = await User.findOne({
+                where: {
+                    id: payload.data.id,
+                    // email: payload.data.email,
+                    login_time: payload.iat
                 }
-                return done(null, false);
-            } catch(e) {
-                console.log('not local');
-                console.log(e);
-                // return done(e, false);
+            });
+            if (existingUser) {
+                // console.log(existingUser.dataValues, '===============>loggedInUser');
+                return done(null, existingUser);
             }
+            return done(null, false);
+        } catch (e) {
+            console.log('not local');
+            console.log(e);
+            // return done(e, false);
         }
-    ));
+    }
+));
 
 module.exports = {
     initialize: function () {
@@ -47,25 +47,25 @@ module.exports = {
         return passport.authenticate("user", {
             session: false
         }, (err, user, info) => {
-			// console.log(err, '=======================>passport err');
-			console.log(info, '=======================>passport info');
-			// console.log(info && info['name'], '=======================>passport info[name]');
-			console.log(user, '=======================>passport err user');
+            // console.log(err, '=======================>passport err');
+            console.log(info, '=======================>passport info');
+            // console.log(info && info['name'], '=======================>passport info[name]');
+            console.log(user, '=======================>passport err user');
 
             if (err) {
                 return helper.error(res, err);
             }
             if (info && info.hasOwnProperty('name') && info.name == 'JsonWebTokenError') {
                 return helper.error(res, {
-					message: 'Invalid Token.'
-				});
+                    message: 'Invalid Token.'
+                });
             } else if (user == false) {
                 return helper.error(res, {
-					message: 'Authorization is required.'
-				});
+                    message: 'Authorization is required.'
+                });
             }
             // Forward user information to the next middleware
-            req.user = user; 
+            req.user = user;
             next();
         })(req, res, next);
     },

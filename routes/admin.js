@@ -121,10 +121,12 @@ router.get('/privacy', webHomePicksController.privacy);
 router.get('/contact_us', webHomePicksController.contact_us);
 
 /*-------------------Video Category Routes---------------------------*/
-router.post('/add_video_details', videoController.videoCategor)
-router.get('/get_video_category', videoController.getVideoCategory)
-router.delete('/delete_video_category/:id', videoController.deletevideoCategory);
-router.put('/update_video_category/:id', videoController.updateVideoCategory)
+
+router.post('/admin/add_video_details', videoController.addVideo)
+router.get('/admin/get_videos', videoController.getVideo)
+router.get('/admin/getVide/:id', videoController.view)
+router.delete('/admin/delete_video/:id', videoController.deletevideo);
+router.put('/admin/update_video/:id', videoController.updateVideo)
 
 
 
