@@ -8,10 +8,14 @@ const modelName = 'songs';
 module.exports = {
     list: async (req, res) => {
 		try {
-            let isLikeQuery = `ifnull((select is_love from loved_songs where user_id=${req.user.id} and song_id=songs.id ),0)`;
-            let isBuyQuery = `ifnull((select count(id) from buy_songs where user_id=${req.user.id} and song_id=songs.id ),0)`;
-            let recently_played_time = `ifnull((select updated_at from user_actions where user_id=${req.user.id} AND song_id=songs.id AND type='1' ),'0000-00-00 00:00:00')`;
-
+            let isLikeQuery = `(SELECT is_love FROM loved_songs WHERE user_id=${req.user.id} AND song_id=songs.id LIMIT 1)`;
+            let isBuyQuery = `(SELECT COUNT(id) FROM buy_songs WHERE user_id=${req.user.id} AND song_id=songs.id LIMIT 1)`;
+            let recently_played_time = `(SELECT updated_at FROM user_actions WHERE user_id=${req.user.id} AND song_id=songs.id AND type='1' LIMIT 1)`;
+    
+            // let isLikeQuery = `ifnull((select is_love from loved_songs where user_id=${req.user.id} and song_id=songs.id ),0)`;
+            // let isBuyQuery = `ifnull((select count(id) from buy_songs where user_id=${req.user.id} and song_id=songs.id ),0)`;
+            // let recently_played_time = `ifnull((select updated_at from user_actions where user_id=${req.user.id} AND song_id=songs.id AND type='1' ),'0000-00-00 00:00:00')`;
+            console.log(isLikeQuery)
             // let get_most_buy_song_list = await helper.getBuySongListGroupBy('song_id')
             let get_most_share_song_list = await helper.getMyRecentPlayedList('song_id',req.user.id,'3')
             let share_song_ids = get_most_share_song_list.length > 0 ? await helper.getSongIdArray(get_most_share_song_list,'song_id') : []
@@ -162,7 +166,7 @@ module.exports = {
                 return helper.failed(res, msg)
             }
 		} catch (error) {
-			console.log(error)
+			console.log(error.message)
 			return helper.failed(res, error)
 		}
     },
