@@ -49,7 +49,7 @@ module.exports = function (sequelize, DataTypes) {
         duration: {
             type: DataTypes.STRING(5),
             allowNull: true,
-            defaultValue: "",
+            defaultValue: "0",
         },
         image: {
             type: DataTypes.STRING(255),

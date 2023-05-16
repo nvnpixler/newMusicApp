@@ -76,14 +76,20 @@ module.exports = {
                 });
             } else {
                 let create =  await models[modelName].create(req.body);
-
-                return res.status(200).json({
-                    'success': true,
-                    'code': 200,
-                    'body': create
-                });
-               
             }
+
+            // if(req.body.status == 1){
+            //     let getVideoData = await helper.getVideoById(req.body.video_id);
+            //     let saveNotificationObj = {
+            //         sender_id:req.body.user_id,
+            //         receiver_id:req.body.user_id,
+            //         song_id:req.body.video_id,
+            //         message:`'${getVideoData.name}' is added to your favorites list.`,
+            //         type:1
+            //     }
+            //     await models['notifications'].create(saveNotificationObj)
+            // }
+
             return helper.success(res, "Video updated successfully.", {});
         } catch (err) {
             return helper.failed(res, err);

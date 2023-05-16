@@ -122,13 +122,14 @@ router.get('/contact_us', webHomePicksController.contact_us);
 
 /*-------------------Video Category Routes---------------------------*/
 
-router.get('/admin/video/list', videoController.index);
-router.get('/admin/video/create', videoController.create);
-router.post('/admin/add_video_details', videoController.addVideo)
-router.get('/admin/get_videos', videoController.getVideo)
-router.get('/admin/getVide/:id', videoController.view)
-router.delete('/admin/delete_video/:id', videoController.deletevideo);
-router.put('/admin/update_video/:id', videoController.updateVideo)
+router.get('/admin/video/list', adminAuthentication, videoController.index);
+router.get('/admin/video/view/:id', adminAuthentication, videoController.view);
+router.get('/admin/video/create', adminAuthentication, videoController.create);
+router.get('/admin/genres/category/:id', adminAuthentication, videoController.getCategory);
+router.post('/admin/video/store', adminAuthentication, videoController.store);
+router.get('/admin/video/edit/:id', adminAuthentication, videoController.edit);
+router.post('/admin/video/update/:id', adminAuthentication, videoController.update);
+router.get('/admin/video/delete/:id', adminAuthentication, videoController.delete);
 
 
 

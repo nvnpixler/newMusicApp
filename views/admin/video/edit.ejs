@@ -7,7 +7,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Video Add</h1>
+                        <h1>Video Edit</h1>
                     </div>
 
                 </div>
@@ -30,7 +30,7 @@
               </div> -->
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form id="quickForm" method="post" action="/admin/video/store"
+                            <form id="quickForm" method="post" action="/admin/video/update/<%= data.id %>"
                                 enctype="multipart/form-data">
                                 <div class="card-body">
                                     <div class="form-group">
@@ -38,8 +38,8 @@
                                         <select class="form-control" name="user_id" id="">
                                             <option selected disabled>Select Singer</option>
                                             <% for(let i in singers){ %>
-                                                <option value="<%= singers[i].id %>">
-                                                    <%= singers[i].name %>
+                                                <option value="<%= singers[i].id %>" <%=(singers[i].id==data.user_id)
+                                                    ? 'selected' : '' %> ><%= singers[i].name %>
                                                 </option>
                                                 <% } %>
                                         </select>
@@ -47,11 +47,12 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Language</label>
-                                        <select class="form-control" name="category_id" id="category">
-                                            <option selected disabled>Select Language</option>
+                                        <select disabled class="form-control" name="category_id" id="">
+                                            <!-- <option selected disabled>Select Category</option> -->
                                             <% for(let i in category){ %>
-                                                <option value="<%= category[i].id %>">
-                                                    <%= category[i].name %>
+                                                <option value="<%= category[i].id %>"
+                                                    <%=(category[i].id==data.category_id) ? 'selected' : '' %>><%=
+                                                        category[i].name %>
                                                 </option>
                                                 <% } %>
                                         </select>
@@ -59,12 +60,13 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Genres</label>
-                                        <select class="form-control" name="genres_id" id="genres">
-                                            <option selected disabled>Select Genres</option>
+                                        <select disabled class="form-control" name="genres_id" id="genres">
+                                            <!-- <option selected disabled>Select Genres</option> -->
                                             <% for(let i in genresData){ %>
                                                 <option value="<%= genresData[i].id %>"
-                                                    cat_id="<%= genresData[i].category_id %>">
-                                                    <%= genresData[i].name %>
+                                                    cat_id="<%= genresData[i].genres_id %>"
+                                                    <%=(genresData[i].id==data.genres_id) ? 'selected' : '' %> ><%=
+                                                        genresData[i].name %>
                                                 </option>
                                                 <% } %>
                                         </select>
@@ -72,69 +74,64 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Name</label>
-                                        <input maxlength="30" type="text" name="name" class="form-control"
-                                            id="exampleInputEmail1" placeholder="Enter Name">
+                                        <input type="text" name="name" class="form-control" id="exampleInputEmail1"
+                                            placeholder="Enter Name" value="<%= data.name %>">
                                     </div>
 
                                     <div class="form-group">
                                         <label for="exampleInputEmail4">Artist Name</label>
                                         <input type="text" name="artist" class="form-control" id="exampleInputEmail4"
-                                            placeholder="Enter Artist name">
+                                            placeholder="Enter Artist name" value="<%= data.artist %>">
                                     </div>
-
 
                                     <div class="form-group">
                                         <label for="exampleInputEmail5">Director Name</label>
                                         <input type="text" name="director" class="form-control" id="exampleInputEmail5"
-                                            placeholder="Enter Director name">
+                                            placeholder="Enter Director name" value="<%= data.director %>">
                                     </div>
 
                                     <div class="form-group">
                                         <label for="exampleInputEmail6">Producer Name</label>
                                         <input type="text" name="producer" class="form-control" id="exampleInputEmail6"
-                                            placeholder="Enter Producer name">
+                                            placeholder="Enter Producer name" value="<%= data.producer %>">
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="exampleInputEmail5">Price (₹)</label>
-                                        <input min="0" type="number" name="price" class="form-control" id="exampleInputEmail5" placeholder="Enter Price">
-                                      </div>
+                                        <label for="exampleInputEmail7">Price</label>
+                                        <input min="0" type="number" name="price" class="form-control" id="exampleInputEmail7"
+                                            placeholder="Enter Price value" value="<%= data.price %>">
+                                    </div>
 
                                     <div class="form-group">
                                         <label for="exampleInputEmail8">Description</label>
                                         <input type="text" name="description" class="form-control"
-                                            id="exampleInputEmail8" placeholder="Enter description">
+                                            id="exampleInputEmail8" placeholder="Enter description"
+                                            value="<%= data.description %>">
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="exampleInputEmail9">Duration </label>
-                                        <input min="0" type="number" name="duration" class="form-control" id="exampleInputEmail9" placeholder="Enter duration">
-                                      </div>
+                                        <label for="exampleInputEmail9">Duration</label>
+                                        <input min="0" type="number"  name="duration" class="form-control" id="exampleInputEmail9"
+                                            placeholder="Enter duration" value="<%= data.duration %>">
+                                    </div>
 
                                     <div class="form-group">
                                         <label for="exampleInputEmail10">Video URL</label>
                                         <input type="text" name="videoURL" class="form-control" id="exampleInputEmail10"
-                                            placeholder="Enter Video URl ">
+                                            placeholder="Enter Video URl " value="<%= data.videoURL %>">
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="inputExperience" class="col-sm-2 col-form-label">Upload Music
-                                            Image</label>
-                                        <div class="col-sm-10">
-                                            <input type="file" class="form-control" id="inputSkills" name="image"
-                                                accept="image/*">
-                                        </div>
+                                        <label for="inputExperience" class="col-sm-2 col-form-label">Image</label>
+                                        <img src="<%= data.image %>" class="profile-user-img img-fluid">
                                     </div>
 
                                 </div>
                                 <!-- /.card-body -->
                                 <div class="card-footer">
-                                    <div class="g-recaptcha" data-sitekey="<%= google_site_key %>"
-                                        data-callback="recaptchaCallback"></div>
-                                    <button type="submit" class="btn btn-primary submit" disabled>Submit</button>
-                                    <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+                                    <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
-                             </form>
+                            </form>
                         </div>
                         <!-- /.card -->
                     </div>
@@ -153,32 +150,18 @@
     <!-- /.content-wrapper -->
 
     <%- include('../layouts/footer'); %>
-
         <script>
-
             $(document).ready(function () {
 
                 $('#quickForm').validate({
                     rules: {
-                        user_id: {
-                            required: true,
-                        },
                         name: {
                             required: true,
                         },
                         category_id: {
                             required: true,
                         },
-                        genres_id: {
-                            required: true,
-                        },
                         artist: {
-                            required: true,
-                        },
-                        director: {
-                            required: true,
-                        },
-                        producer: {
                             required: true,
                         },
                         price: {
@@ -187,29 +170,13 @@
                         description: {
                             required: true,
                         },
-                        duration: {
-                            required: true,
-                        },
-                        videoURL: {
-                            required: true,
-                        },
-                        image: {
-                            required: true
-                        },
                     },
                     messages: {
-                        user_id: "Please select singer",
                         name: "Please enter name",
                         category_id: "Please select category",
-                        genres_id: "Please select genres",
                         artist: "Please enter artist",
-                        director: "Please enter director",
-                        producer: "Please enter producer",
                         price: "Please enter price",
-                        description: "Please enter description",
-                        duration: "Please enter duration",
-                        videoURL: "Please enter videoURL",
-                        image: "Please select image"
+                        description: "Please enter description"
                     },
                     errorElement: 'span',
                     errorPlacement: function (error, element) {
@@ -223,17 +190,5 @@
                         $(element).removeClass('is-invalid');
                     }
                 });
-
-                var $optgroups = $('#genres > option');
-
-                // $("#category").on("change",function(){
-                // $('#genres > option').prop('disabled', false);
-                // var selectedVal = this.value;
-                // console.log(selectedVal,'--selectedVal---');
-                // console.log($optgroups,'--selectedVal---');
-
-                // $('#genres').html($optgroups.filter('[cat_id="'+selectedVal+'"]'));
-                // });
-
             });
         </script>

@@ -19,6 +19,7 @@
     "fcm-node": "^1.6.1",
     "file-extension": "^4.0.5",
     "fs-extra": "^10.1.0",
+    "hls.js": "^1.4.3",
     "http-errors": "~1.6.3",
     "izitoast": "^1.4.0",
     "joi": "^17.9.1",
