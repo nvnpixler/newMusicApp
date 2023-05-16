@@ -29,7 +29,7 @@ const options = {
     },
     production: false,
 };
-const apnProvider = new apn.Provider(options);
+// const apnProvider = new apn.Provider(options);
 
 const constants = require('../config/constants')
 const client = require('twilio')(twilioSID, twilioToken);
