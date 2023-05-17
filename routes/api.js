@@ -82,16 +82,17 @@ router.post('/podcast/list_by_category',requireAuthentication, podcastController
 router.get('/like_video',requireAuthentication, responseController.like_video);
 
 //love song api
-router.get('/loved_video_list', lovedVideoController.loved_video_list);
-router.post('/love_unlove_video', lovedVideoController.love_unLike_video);
+router.post('/loved_video_list',requireAuthentication, lovedVideoController.loved_video_list);
+router.post('/love_unlove_video', requireAuthentication, lovedVideoController.love_unLike_video);
+router.post('/love_video_count', requireAuthentication, lovedVideoController.loved_video_count);
 
 // get All Video
 router.get('/get_video_list', videoController.getVideo);
 router.post('/get_video/:id', videoController.view);
 
 // get Add Video
-router.get('/get_add_video_list', AddVideLib.video_list);
-router.post('/add_video', AddVideLib.Add_video);
-router.post('/remove_video', AddVideLib.remove_Video);
+router.get('/get_add_video_list',requireAuthentication, AddVideLib.video_list);
+router.post('/add_video',requireAuthentication, AddVideLib.Add_video);
+router.post('/remove_video',requireAuthentication, AddVideLib.remove_Video);
 
 module.exports = router;

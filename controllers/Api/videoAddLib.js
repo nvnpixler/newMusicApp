@@ -9,15 +9,6 @@ module.exports = {
 
     video_list: async (req, res) => {
         try {
-            let v = new Validator(req.body, {
-                user_id: 'required|integer',
-            });
-            let errorsResponse = await helper.checkValidation(v);
-
-            if (errorsResponse) {
-                return helper.failed(res, errorsResponse);
-            }
-
             let get_list = await models[modelName].findAll({
                 include: [
                     {
@@ -28,7 +19,7 @@ module.exports = {
                     },
                 ],
                 where: {
-                    user_id: req.body.user_id,
+                    user_id: req.user.id,
                     is_add: 1,
                 },
             });
@@ -48,11 +39,10 @@ module.exports = {
 
     Add_video: async (req, res) => {
         try {
-            console.log(req.body)
+            console.log(req.user)
             let v = new Validator(req.body, {
                 video_id: 'required|integer',
-                user_id: 'required|integer',
-                is_add: 'required|integer'
+                is_add: 'required|integer',
             });
             let errorsResponse = await helper.checkValidation(v)
 
@@ -63,7 +53,7 @@ module.exports = {
             let checkPlaylistVideoExists = await models[modelName].findOne({
                 where: {
                     video_id: req.body.video_id,
-                    user_id: req.body.user_id
+                    user_id: req.user.id,
                 },
                 raw: true
             });
@@ -76,24 +66,13 @@ module.exports = {
                         'code': 200,
                         'message': "Already added this"
                     });
-                }else{
-                    await models[modelName].update({
-                        is_add: req.body.is_add
-                    },
-                        {
-                        where : {
-                            id: checkPlaylistVideoExists.id
-                        }
-                    });
-
-                    return res.status(200).json({
-                        'success': true,
-                        'code': 200,
-                        'message': "Updated successfully",
-                    });
                 }
             }else{
-                let addedVideo2 =  await models[modelName].create(req.body);
+                let addedVideo2 =  await models[modelName].create({
+                    video_id: req.body.video_id,
+                    user_id: req.user.id,
+                    is_add: req.body.is_add
+                });
                 return res.status(200).json({
                     'success': true,
                     'code': 200,
@@ -110,7 +89,6 @@ module.exports = {
         try {
             let v = new Validator(req.body, {
                 video_id: 'required|integer',
-                user_id: 'required|integer',
                 is_add: 'required|integer',
             });
             let errorsResponse = await helper.checkValidation(v)
@@ -122,7 +100,7 @@ module.exports = {
             let checkPlaylistVideoExists = await models[modelName].findOne({
                 where: {
                     video_id: req.body.video_id,
-                    user_id: req.body.user_id
+                    user_id: req.user.id
                 },
                 raw: true
             });
