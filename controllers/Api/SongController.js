@@ -15,9 +15,9 @@ module.exports = {
                     is_read:0
                 }
             });
+            
             let isLikeQuery = `ifnull((select is_love from loved_songs where user_id=${req.user.id} and song_id=songs.id ),0)`;
             let isBuyQuery = `ifnull((select count(id) from buy_songs where user_id=${req.user.id} and song_id=songs.id ),0)`;
-
             let played_song_count_query = `ifnull((select count(count) from user_actions where type='1' and song_id=songs.id ),0)`;
 
             let get_most_buy_song_list = await helper.getBuySongListGroupBy('song_id')

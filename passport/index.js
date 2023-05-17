@@ -13,13 +13,13 @@ const jwtOptions = {};
 jwtOptions.jwtFromRequest = ExtractJWT.fromAuthHeaderAsBearerToken();
 jwtOptions.secretOrKey = jwtSecretKey;
 
+// Create JWT Strategy
 passport.use('user', new JwtStrategy(jwtOptions, async (payload, done) => {
   try {
     console.log(payload, '---payload--');
-    const existingUser = await User.findOne({
+    let existingUser = await User.findOne({
       where: {
-        id: payload.data.id,
-        login_time: payload.iat
+        id: payload.data.id
       }
     });
     if (existingUser) {
@@ -32,8 +32,12 @@ passport.use('user', new JwtStrategy(jwtOptions, async (payload, done) => {
   }
 }));
 
-const authenticateUser = (req, res, next) => {
-  passport.authenticate('user', { session: false }, (err, user, info) => {
+// Initialize Passport
+const initialize = () => passport.initialize();
+
+// Middleware for authenticating the user
+const authenticateUser = async (req, res, next) => {
+ await passport.authenticate('user', { session: false }, async (err, user, info) => {
     if (err) {
       return helper.error(res, err);
     }
@@ -46,15 +50,16 @@ const authenticateUser = (req, res, next) => {
     if (!user) {
       return helper.error(res, { message: 'Authorization is required.' });
     }
-    req.user = user;
+    req.user = await user;
     next();
   })(req, res, next);
 };
 
 module.exports = {
-  initialize: () => passport.initialize(),
-  authenticateUser: authenticateUser,
+  initialize,
+  authenticateUser
 };
+
 
 // const passport = require('passport');
 // const JwtStrategy = require('passport-jwt').Strategy;

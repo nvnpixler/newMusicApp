@@ -7,126 +7,124 @@ const modelName = 'video_add_lib';
 
 module.exports = {
 
-    video_list: async (req, res) => {
-        try {
-            let get_list = await models[modelName].findAll({
-                include: [
-                    {
-                        model: models['users'],
-                    },
-                    {
-                        model: models['video_details'],
-                    },
-                ],
-                where: {
-                    user_id: req.user.id,
-                    is_add: 1,
-                },
-            });
+  video_list: async (req, res) => {
+    try {
+      let get_list = await models[modelName].findAll({
+        include: [
+          {
+            model: models['users'],
+          },
+          {
+            model: models['video_details'],
+          },
+        ],
+        where: {
+          user_id: req.user.id,
+          is_add: 1,
+        },
+      });
 
-            return res.status(200).json({
-                'success': true,
-                'code': 200,
-                'body': get_list
-            });
+      return res.status(200).json({
+        'success': true,
+        'code': 200,
+        'body': get_list
+      });
 
-        } catch (err) {
-            console.error('Error:', err);
-            return helper.failed(res, err);
-        }
-    },
+    } catch (err) {
+      console.error('Error:', err);
+      return helper.failed(res, err);
+    }
+  },
 
+  get_video_details: async (req, res) => {
+    try {
+      let v = new Validator(req.body, {
+        video_id: 'required|integer',
+      });
+      let errorsResponse = await helper.checkValidation(v);
 
-    Add_video: async (req, res) => {
-        try {
-            console.log(req.user)
-            let v = new Validator(req.body, {
-                video_id: 'required|integer',
-                is_add: 'required|integer',
-            });
-            let errorsResponse = await helper.checkValidation(v)
+      if (errorsResponse) {
+        return helper.failed(res, errorsResponse);
+      }
+      let get_list = await models[modelName].findAll({
+        include: [
+          {
+            model: models['users'],
+          },
+          {
+            model: models['video_details'],
+          },
+        ],
+        where: {
+          user_id: req.user.id,
+          video_id: req.body.video_id,
+        },
+      });
 
-            if (errorsResponse) {
-                return helper.failed(res, errorsResponse)
-            }
+      return res.status(200).json({
+        'success': true,
+        'code': 200,
+        'body': get_list
+      });
 
-            let checkPlaylistVideoExists = await models[modelName].findOne({
-                where: {
-                    video_id: req.body.video_id,
-                    user_id: req.user.id,
-                },
-                raw: true
-            });
+    } catch (err) {
+      console.error('Error:', err);
+      return helper.failed(res, err);
+    }
+  },
 
-            if(checkPlaylistVideoExists) {
+  Add_video: async (req, res) => {
+    try {
+      let v = new Validator(req.body, {
+        video_id: 'required|integer',
+        is_add: 'required|integer|in:0,1', // Validate status as 0 or 1
+      });
+      let errorsResponse = await helper.checkValidation(v);
 
-                if(checkPlaylistVideoExists.is_add === 1) {
-                    return res.status(200).json({
-                        'success': true,
-                        'code': 200,
-                        'message': "Already added this"
-                    });
-                }
-            }else{
-                let addedVideo2 =  await models[modelName].create({
-                    video_id: req.body.video_id,
-                    user_id: req.user.id,
-                    is_add: req.body.is_add
-                });
-                return res.status(200).json({
-                    'success': true,
-                    'code': 200,
-                    'message': "Added successfully",
-                    'body': addedVideo2
-                });
-            }
-         } catch (err) {
-            return helper.failed(res, err);
-        }
-    },
+      if (errorsResponse) {
+        return helper.failed(res, errorsResponse);
+      }
 
-    remove_Video: async (req, res) => {
-        try {
-            let v = new Validator(req.body, {
-                video_id: 'required|integer',
-                is_add: 'required|integer',
-            });
-            let errorsResponse = await helper.checkValidation(v)
+      const { video_id, is_add } = req.body;
+      const user_id = req.user.id;
 
-            if (errorsResponse) {
-                return helper.failed(res, errorsResponse)
-            }
+      let checkPlaylistVideoExists = await models[modelName].findOne({
+        where: {
+          video_id: video_id,
+          user_id: user_id,
+        },
+        raw: true,
+      });
 
-            let checkPlaylistVideoExists = await models[modelName].findOne({
-                where: {
-                    video_id: req.body.video_id,
-                    user_id: req.user.id
-                },
-                raw: true
-            });
-
-           if(checkPlaylistVideoExists) {
-
-           let removed = await models[modelName].update({
-            is_add: req.body.is_add
+      if (checkPlaylistVideoExists) {
+        await models[modelName].update(
+          {
+            is_add: is_add,
+          },
+          {
+            where: {
+              id: checkPlaylistVideoExists.id,
             },
-            {
-            where : {
-                id: checkPlaylistVideoExists.id
-            }
+          }
+        );
+
+        if (is_add === 1) {
+          return helper.success(res, "Video added successfully.", {});
+        } else {
+          return helper.success(res, "Video remove successfully.", {});
+        }
+      } else {
+        await models[modelName].create({
+          video_id: video_id,
+          user_id: user_id,
+          is_add: is_add,
         });
 
-        return res.status(200).json({
-                'success': true,
-                'code': 200,
-                'message': "Remove successfully",
-                "body": removed
-            });
-           }
-
-        } catch (err) {
-            return helper.failed(res, err);
-        }
-    },
+        return helper.success(res, "Video added.", {});
+      }
+    } catch (err) {
+      return helper.failed(res, err);
+    }
+  }
 
 }

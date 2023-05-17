@@ -7,7 +7,6 @@ const env = process.env.NODE_ENV || 'development';
 console.log(env)
 const config = require(__dirname + '/../config/config.json')[env];
 const db = {};
-const videoDetailsModel = require('../models/video_detailsModel.js')
 
 let sequelize;
 if (config.use_env_variable) {

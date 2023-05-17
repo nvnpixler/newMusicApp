@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const requireAuthentication = require('../passport').authenticateUser;
+var requireAuthentication = require('../passport').authenticateUser;
 
 var authController = require('../controllers/Api/AuthController');
 var songController = require('../controllers/Api/SongController');
@@ -13,6 +13,7 @@ var buySongController = require('../controllers/Api/BuySongController');
 let responseController = require('../controllers/Api/ResponseController');
 var videoController = require("../controllers/Api/VideoController");
 var AddVideLib = require("../controllers/Api/videoAddLib");
+var AddPodcastLib = require("../controllers/Api/addPodcast");
 //file upload
 router.post('/file_upload',authController.file_upload);
 
@@ -85,6 +86,7 @@ router.get('/like_video',requireAuthentication, responseController.like_video);
 router.post('/loved_video_list',requireAuthentication, lovedVideoController.loved_video_list);
 router.post('/love_unlove_video', requireAuthentication, lovedVideoController.love_unLike_video);
 router.post('/love_video_count', requireAuthentication, lovedVideoController.loved_video_count);
+router.post('/user_love_video_list', requireAuthentication, lovedVideoController.user_like_video_list);
 
 // get All Video
 router.get('/get_video_list', videoController.getVideo);
@@ -92,7 +94,13 @@ router.post('/get_video/:id', videoController.view);
 
 // get Add Video
 router.get('/get_add_video_list',requireAuthentication, AddVideLib.video_list);
-router.post('/add_video',requireAuthentication, AddVideLib.Add_video);
-router.post('/remove_video',requireAuthentication, AddVideLib.remove_Video);
+router.post('/video_add_to_lib',requireAuthentication, AddVideLib.Add_video);
+router.post('/get_video_details',requireAuthentication, AddVideLib.get_video_details);
+
+// get Add podcast
+router.get('/get_add_podcast_list',requireAuthentication, AddPodcastLib.podcast_list);
+router.post('/podcast_add_to_lib',requireAuthentication, AddPodcastLib.Add_podcast);
+router.post('/get_podcast_details',requireAuthentication, AddPodcastLib.get_podcast_details);
+
 
 module.exports = router;

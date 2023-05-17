@@ -402,8 +402,6 @@ module.exports = {
 
             let time = helper.unixTimestamp();
 
-            console.log(time)
-
             await models[modelName].update({ 
                 login_time: time,
                 device_token:req.body.device_token,
@@ -421,33 +419,33 @@ module.exports = {
                 raw: true
             });
             
-            var token = jwt.sign({
+            let token =  jwt.sign({
                 data: {
                     id: getData.id,
                     // email: create_user.email,
                     login_time: getData.login_time,
                 }
             }, secretKey);
-            console.log(token)
+
             getData.token = token;
             delete getData.password;
 
-            // let checkUserGenres = await models['user_genres'].count({
-            //     where:{
-            //         user_id: getData.id,
-            //     },
-            // });
+            let checkUserGenres = await models['user_genres'].count({
+                where:{
+                    user_id: getData.id,
+                },
+            });
             
-            // let checkUserLanguage = await models['user_languages'].count({
-            //     where:{
-            //         user_id: getData.id,
-            //     },
-            // });
+            let checkUserLanguage = await models['user_languages'].count({
+                where:{
+                    user_id: getData.id,
+                },
+            });
 
-            // getData.is_language_added  = checkUserLanguage > 0 ? 1 : 0;
-            // getData.is_genres_added  = checkUserGenres > 0 ? 1 : 0;
+            getData.is_language_added  = checkUserLanguage > 0 ? 1 : 0;
+            getData.is_genres_added  = checkUserGenres > 0 ? 1 : 0;
 
-            // console.log(getData, '==========>getUser');
+            console.log(getData, '==========>getUser');
 
             return helper.success(res, "Login successfully.", getData);
         } catch (err) {

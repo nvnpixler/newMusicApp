@@ -47,6 +47,7 @@ module.exports = {
             return helper.failed(res, err);
         }
     },
+    
     love_unLike_video: async (req, res) => {
         try {
           let v = new Validator(req.body, {
@@ -104,7 +105,36 @@ module.exports = {
         } catch (err) {
           return helper.failed(res, err);
         }
-      },
+    },
+
+    user_like_video_list: async (req, res) => {
+      try {
+          let get_list = await models[modelName].findAll({
+              include: [
+                  {
+                      model: models['users'],
+                  },
+                  {
+                      model: models['video_details'],
+                  },
+              ],
+              where: {
+                  user_id: req.user.id,
+                  is_love: 1,
+              },
+          });
+
+          return res.status(200).json({
+              'success': true,
+              'code': 200,
+              'body': get_list
+          });
+
+      } catch (err) {
+          console.error('Error:', err);
+          return helper.failed(res, err);
+      }
+  },
       
     
     // love_unLike_video: async (req, res) => {
