@@ -14,6 +14,7 @@ let responseController = require('../controllers/Api/ResponseController');
 var videoController = require("../controllers/Api/VideoController");
 var AddVideLib = require("../controllers/Api/videoAddLib");
 var AddPodcastLib = require("../controllers/Api/addPodcast");
+var lovePodcastController = require("../controllers/Api/lovedPodcast");
 //file upload
 router.post('/file_upload',authController.file_upload);
 
@@ -101,6 +102,12 @@ router.post('/get_video_details',requireAuthentication, AddVideLib.get_video_det
 router.get('/get_add_podcast_list',requireAuthentication, AddPodcastLib.podcast_list);
 router.post('/podcast_add_to_lib',requireAuthentication, AddPodcastLib.Add_podcast);
 router.post('/get_podcast_details',requireAuthentication, AddPodcastLib.get_podcast_details);
+
+//love podcast api
+router.post('/loved_podcast_list',requireAuthentication, lovePodcastController.loved_podcast_list);
+router.post('/love_unlove_podcast', requireAuthentication, lovePodcastController.love_unLike_podcast);
+router.post('/love_podcast_count', requireAuthentication, lovePodcastController.loved_podcast_count);
+router.post('/user_love_podcast_list', requireAuthentication, lovePodcastController.user_like_podcast_list);
 
 
 module.exports = router;
