@@ -111,7 +111,8 @@ module.exports = {
                 price: 'required',
                 description: 'required',
                 duration: 'required',
-                videoURL: 'required'
+                videoURL: 'required|url',
+                subTitleURL: 'required|url'
             });
             var errorsResponse
             await v.check().then(function (matched) {
@@ -160,6 +161,7 @@ module.exports = {
                     duration: req.body.duration,
                     image: image,
                     videoURL: req.body.videoURL,
+                    subTitleURL: req.body.subTitleURL,
                     artist: req.body.artist,
                     price: req.body.price
                 }
@@ -308,6 +310,7 @@ module.exports = {
                     data.description = req.body.description ? req.body.description : '',
                     data.duration = req.body.duration,
                     data.videoURL = req.body.videoURL,
+                    data.subTitleURL = req.body.subTitleURL,
                     data.artist = req.body.artist,
                     data.price = req.body.price
 

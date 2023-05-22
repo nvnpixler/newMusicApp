@@ -118,6 +118,12 @@
                                     </div>
 
                                     <div class="form-group">
+                                        <label for="exampleInputEmail11">Sub Title URL</label>
+                                        <input type="text" name="subTitleURL" class="form-control" id="exampleInputEmail11"
+                                            placeholder="Enter Sub Title URl ">
+                                    </div>
+
+                                    <div class="form-group">
                                         <label for="inputExperience" class="col-sm-2 col-form-label">Upload Music
                                             Image</label>
                                         <div class="col-sm-10">
@@ -193,6 +199,9 @@
                         videoURL: {
                             required: true,
                         },
+                        subTitleURL: {
+                            required: true,
+                        },
                         image: {
                             required: true
                         },
@@ -209,6 +218,7 @@
                         description: "Please enter description",
                         duration: "Please enter duration",
                         videoURL: "Please enter videoURL",
+                        subTitleURL: "Please enter Sub Title URL",
                         image: "Please select image"
                     },
                     errorElement: 'span',

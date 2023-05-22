@@ -121,11 +121,20 @@
                                             placeholder="Enter Video URl " value="<%= data.videoURL %>">
                                     </div>
 
+                                    
                                     <div class="form-group">
-                                        <label for="inputExperience" class="col-sm-2 col-form-label">Image</label>
-                                        <img src="<%= data.image %>" class="profile-user-img img-fluid">
+                                        <label for="exampleInputEmail11">Sub Title URL</label>
+                                        <input type="text" name="subTitleURL" class="form-control" id="exampleInputEmail11"
+                                            placeholder="Enter Sub Title URl " value="<%= data.subTitleURL %>">
                                     </div>
 
+                                    <div class="form-group">
+                                        <label for="inputExperience" class="col-sm-2 col-form-label">Upload Music Image</label>
+                                        <div class="col-sm-10">
+                                            <input type="file" class="form-control" id="inputSkills" name="image" accept="image/*">
+                                        </div>
+                                        <img src="<%= data.image %>" class="profile-user-img img-fluid">
+                                    </div>
                                 </div>
                                 <!-- /.card-body -->
                                 <div class="card-footer">

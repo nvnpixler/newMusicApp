@@ -61,6 +61,11 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: true,
             defaultValue: "null",
         },
+        subTitleURL: {
+            type: DataTypes.STRING(255),
+            allowNull: true,
+            defaultValue: "null",
+        },
         status: {
             type: DataTypes.ENUM("0", "1"),
             allowNull: false,
