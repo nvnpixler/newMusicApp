@@ -119,6 +119,7 @@ router.get('/about', webHomePicksController.about);
 router.get('/terms', webHomePicksController.terms);
 router.get('/privacy', webHomePicksController.privacy);
 router.get('/contact_us', webHomePicksController.contact_us);
+router.get('/data_deletion_policy', webHomePicksController.data_deletion_policy);
 
 /*-------------------Video Category Routes---------------------------*/
 

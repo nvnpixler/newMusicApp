@@ -46,6 +46,18 @@ module.exports = {
             return helper.error(res, err);
         }
     },
+
+    data_deletion_policy: function async(req, res) {
+        try{
+            res.render('website/data_deletion_policy',{
+                message:'',
+                title : 'data_deletion_policy'
+            });
+        } catch (err) {
+            console.log(err,'-------errorr-----------');
+            return helper.error(res, err);
+        }
+    },
     
     contact_us: function async(req, res) {
         try{

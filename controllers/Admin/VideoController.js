@@ -124,6 +124,7 @@ module.exports = {
                             respErrors.push(valdErrors[key].message);
                         }
                     });
+                   
                     errorsResponse = respErrors.join(', ');
                     // return helper.error(res, errorsResponse)
                 }
