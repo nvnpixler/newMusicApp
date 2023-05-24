@@ -92,9 +92,9 @@ module.exports = {
                 raw: true
             });
 
-            if (checkEmail) {
-                return helper.error(res, "Email already exists");
-            }
+            // if (checkEmail) {
+            //     return helper.error(res, "Email already exists");
+            // }
 
             let checkPhone = await models[modelName].findOne({
                 where: {
