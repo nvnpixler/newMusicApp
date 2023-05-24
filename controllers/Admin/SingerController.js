@@ -77,10 +77,12 @@ module.exports = {
             if(checkEmail){
                 req.flash('flashMessage', { color: 'error', message: 'Email already exists!.' });
                 res.redirect('/admin/singer/create')
-            } else if(checkPhone){
-                req.flash('flashMessage', { color: 'error', message: 'Phone already exists!.' });
-                res.redirect('/admin/singer/create')
-            } else {
+            } 
+            // else if(checkPhone){
+            //     req.flash('flashMessage', { color: 'error', message: 'Phone already exists!.' });
+            //     res.redirect('/admin/singer/create')
+            // } 
+            else {
                 let image = ''
                 if (req.files && req.files.image) {
                     let imageName = helper.fileUpload(req.files.image, 'users', 'uploads');

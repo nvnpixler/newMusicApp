@@ -104,9 +104,9 @@ module.exports = {
                 raw: true
             });
 
-            if (checkPhone) {
-                return helper.error(res, "Phone no. already exists");
-            }
+            // if (checkPhone) {
+            //     return helper.error(res, "Phone no. already exists");
+            // }
 
             if (req.body.password) {
                 req.body.password = await helper.bcryptHash(req.body.password, saltRounds)
