@@ -71,7 +71,7 @@ module.exports = function (sequelize, DataTypes) {
         transactions.belongsTo(models.users, { foreignKey: 'singer_id', hooks: false, as: 'singer' });
         transactions.belongsTo(models.songs, { foreignKey: 'song_id', hooks: false });
     };
-    // genres.sync()
+    // transactions.sync()
     // .then(() => {
     //     console.log('table created successfully.');
     // })
