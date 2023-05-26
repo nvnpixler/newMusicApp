@@ -52,17 +52,17 @@ module.exports = function(sequelize, DataTypes) {
         ],
     });
 
-    // playlists.associate = models => {
-	// 	playlists.belongsTo(models.users, { foreignKey: 'user_id', hooks: false });
-    //     playlists.hasMany(models.playlist_songs, { foreignKey: 'playlist_id', hooks: false });
-	// };
+    playlists.associate = models => {
+		playlists.belongsTo(models.users, { foreignKey: 'user_id', hooks: false });
+        playlists.hasMany(models.playlist_songs, { foreignKey: 'playlist_id', hooks: false });
+	};
 
-    playlists.sync()
-    .then(() => {
-        console.log('table created successfully.');
-    })
-    .catch((error) => {
-        console.error('Error creating table:', error);
-    });
+    // playlists.sync()
+    // .then(() => {
+    //     console.log('table created successfully.');
+    // })
+    // .catch((error) => {
+    //     console.error('Error creating table:', error);
+    // });
   return playlists;
 };

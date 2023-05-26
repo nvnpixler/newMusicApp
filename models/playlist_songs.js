@@ -51,19 +51,19 @@ module.exports = function (sequelize, DataTypes) {
         ],
     });
 
-    // playlist_songs.associate = models => {
-    //     playlist_songs.belongsTo(models.users, { foreignKey: 'user_id', hooks: false });
-    //     playlist_songs.belongsTo(models.playlists, { foreignKey: 'playlist_id', hooks: false });
-    //     playlist_songs.belongsTo(models.songs, { foreignKey: 'song_id', hooks: false });
-    // };
+    playlist_songs.associate = models => {
+        playlist_songs.belongsTo(models.users, { foreignKey: 'user_id', hooks: false });
+        playlist_songs.belongsTo(models.playlists, { foreignKey: 'playlist_id', hooks: false });
+        playlist_songs.belongsTo(models.songs, { foreignKey: 'song_id', hooks: false });
+    };
 
-    playlist_songs.sync()
-    .then(() => {
-        console.log('table created successfully.');
-    })
-    .catch((error) => {
-        console.error('Error creating table:', error);
-    });
+    // playlist_songs.sync()
+    // .then(() => {
+    //     console.log('table created successfully.');
+    // })
+    // .catch((error) => {
+    //     console.error('Error creating table:', error);
+    // });
 
     return playlist_songs;
 };
