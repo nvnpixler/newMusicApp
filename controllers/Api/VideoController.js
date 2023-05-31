@@ -68,5 +68,47 @@ module.exports = {
             console.log(err);
             return helper.error(res, err);
         }
-    }
+    },
+
+    list_by_category: async (req, res) => {
+		try {
+            console.log(req.body,'--req.body--');
+            let v = new Validator( req.body, {
+                category_id: 'required|integer'
+            });
+            let errorsResponse = await helper.checkValidation(v)
+            if(errorsResponse){
+                return helper.failed(res, errorsResponse)
+            }
+            let whereCondition = {
+                category_id: req.body.category_id,
+            }
+            
+            let orderCondition
+            orderCondition = [['id', 'DESC']];
+
+            let all_list = await models[modelName].findAll({
+                include:[
+                    {
+                        model:models['users'],
+                        attributes:['id','name']
+                    },
+                    {
+                        model:models['categories'],
+                        attributes:['id','name']
+                    },
+                    {
+                        model:models['genres'],
+                        attributes:['id','name']
+                    }
+                ],
+                where:{ ...whereCondition },
+                order : orderCondition
+            });
+            let msg = "Video list";
+            return helper.success(res, msg, all_list);
+        } catch (error) {
+			return helper.failed(res, error)
+		}
+    },
 };

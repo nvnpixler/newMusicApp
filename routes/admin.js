@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 const adminAuthentication = require('../middlewares/adminAuthentication');
-const uploadFile = require('../middlewares/fileUploader');
+// const uploadFile = require('../middlewares/fileUploader');
 var authController = require('../controllers/Admin/AuthController');
 var pageController = require('../controllers/Admin/PageController');
 var singerController = require('../controllers/Admin/SingerController');

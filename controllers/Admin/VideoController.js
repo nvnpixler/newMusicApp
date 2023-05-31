@@ -111,8 +111,7 @@ module.exports = {
                 price: 'required',
                 description: 'required',
                 duration: 'required',
-                videoURL: 'required|url',
-                subTitleURL: 'required|url'
+                videoURL: 'required|url'
             });
             var errorsResponse
             await v.check().then(function (matched) {
@@ -148,6 +147,11 @@ module.exports = {
                     let imageName = helper.fileUpload(req.files.image, 'video', 'uploads');
                     image = imageName
                 }
+                let subTitleURL = ''
+                if (req.files && req.files.subTitleURL) {
+                    let subName = helper.fileUpload(req.files.subTitleURL, 'subtitle', 'uploads');
+                    subTitleURL = subName
+                }
                 let body = {
                     name: req.body.name,
                     category_id: req.body.category_id,
@@ -162,7 +166,7 @@ module.exports = {
                     duration: req.body.duration,
                     image: image,
                     videoURL: req.body.videoURL,
-                    subTitleURL: req.body.subTitleURL,
+                    subTitleURL: subTitleURL,
                     artist: req.body.artist,
                     price: req.body.price
                 }
@@ -256,8 +260,8 @@ module.exports = {
             return helper.error(res, err);
         }
     },
+
     update: async function(req, res) {
-        console.log(req.body)
         try{
                 let v = new Validator( req.body, {
                 name: 'required',
@@ -311,13 +315,19 @@ module.exports = {
                     data.description = req.body.description ? req.body.description : '',
                     data.duration = req.body.duration,
                     data.videoURL = req.body.videoURL,
-                    data.subTitleURL = req.body.subTitleURL,
+                    // data.subTitleURL = req.body.subTitleURL,
                     data.artist = req.body.artist,
                     data.price = req.body.price
 
                     if (req.files && req.files.image) {
                         let imageName = helper.fileUpload(req.files.image, 'video', 'uploads');
                         data.image = imageName
+                    }
+
+                    
+                    if (req.files && req.files.subTitleURL) {
+                        let subName = helper.fileUpload(req.files.subTitleURL, 'subtitle', 'uploads');
+                        data.subTitleURL = subName
                     }
 
                     data.save();
@@ -335,6 +345,7 @@ module.exports = {
             return helper.error(res, err);
         }
     },
+
     delete: async function (req, res) {
         try{
             console.log(req.params,'--req.body--');

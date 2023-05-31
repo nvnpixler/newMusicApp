@@ -90,8 +90,9 @@ router.post('/love_video_count', requireAuthentication, lovedVideoController.lov
 router.post('/user_love_video_list', requireAuthentication, lovedVideoController.user_like_video_list);
 
 // get All Video
-router.get('/get_video_list', videoController.getVideo);
-router.post('/get_video/:id', videoController.view);
+router.get('/get_video_list',requireAuthentication, videoController.getVideo);
+router.post('/get_video/:id',requireAuthentication, videoController.view);
+router.post('/video/list_by_category',requireAuthentication, videoController.list_by_category);
 
 // get Add Video
 router.get('/get_add_video_list',requireAuthentication, AddVideLib.video_list);

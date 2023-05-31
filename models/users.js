@@ -159,5 +159,13 @@ module.exports = function (sequelize, DataTypes) {
         users.hasOne(models.singer_banks, { foreignKey: 'user_id', hooks: false });
     };
 
+        // popil_picks.sync()
+    // .then(() => {
+    //     console.log('table created successfully.');
+    // })
+    // .catch((error) => {
+    //     console.error('Error creating table:', error);
+    // });
+
     return users;
 };

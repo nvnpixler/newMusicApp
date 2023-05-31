@@ -114,6 +114,12 @@
                   </div>
 
                   <div class="form-group">
+                    <label for="exampleInputEmail10">Video URL</label>
+                    <input type="text" name="videoURL" class="form-control" id="exampleInputEmail10"
+                        placeholder="Enter Video URl " value="<%= data.videoURL %>">
+                </div>
+
+                  <div class="form-group">
                     <label for="exampleInputEmail11">Sub Title URL</label>
                     <input type="text" name="subTitleURL" class="form-control" id="exampleInputEmail11"
                         placeholder="Enter Sub Title URl " value="<%= data.subTitleURL %>">
@@ -125,9 +131,9 @@
                     <img src="<%= data.image %>" class="profile-user-img img-fluid">
                   </div>
                   
-                  <div style="position: relative; padding-top: 56.25%;">
+                  <!-- <div style="position: relative; padding-top: 56.25%;">
                      <video id="my-video" controls style="position: absolute; top: 0; left: 0; width: 50%; height: 50%;"></video>
-                  </div>
+                  </div> -->
 
                 </div>
               </form>
@@ -144,7 +150,7 @@
 
   <%- include('../layouts/footer'); %>
 
-  <script>
+  <!-- <script>
     const video = document.getElementById('my-video');
     const hls = new Hls();
     const videoUrl = '<%= data.videoURL %>';
@@ -155,7 +161,7 @@
     } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
       video.src = videoUrl;
     }
-  </script>
+  </script> -->
   
     <script>
       $(document).ready(function () {
